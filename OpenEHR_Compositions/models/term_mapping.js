@@ -8,4 +8,4 @@ var TERM_MAPPING = new mongoose.Schema({
   target: CODE_PHRASE,
 });
 
-module.exports = mongoose.model("dv_uri", DV_URI);
+module.exports = mongoose.model("term_mapping", TERM_MAPPING);
