@@ -7,8 +7,8 @@ var PARTICIPATION = require("./participation");
 var EVENT_CONTEXT = new mongoose.Schema({
   pathable: String,
   start_time: String,
-  end_time: String,
-  location: String,
+  end_time: Date,
+  location: Date,
   setting: DV_CODED_TEXT,
   other_context: LOCATABLE,
   health_care_facility: [PARTY_IDENTIFIED],
