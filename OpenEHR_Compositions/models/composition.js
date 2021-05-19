@@ -1,5 +1,8 @@
 var mongoose = require("mongoose");
-var LOCATABLE = require("locatable");
+var LOCATABLE = require("./locatable");
+var DV_CODED_TEXT = require("./dv_coded_text");
+var CODE_PHRASE = require("./code_phrase");
+var EVENT_CONTEXT = require("./event_context");
 
 var COMPOSITION = new mongoose.Schema({
   locatable: LOCATABLE,
