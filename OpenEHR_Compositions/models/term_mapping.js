@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
-var DV_CODED_TEXT = require("./dv_coded_text")
-var CODE_PHRASE = require("./code_phrase")
+var DV_CODED_TEXT = require("./dv_coded_text").schema;
+var CODE_PHRASE = require("./code_phrase").schema;
 
 var TERM_MAPPING = new mongoose.Schema({
   match: String,
