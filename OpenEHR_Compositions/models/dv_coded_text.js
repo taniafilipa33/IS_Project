@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
-var CODE_PHRASE = require("./code_phrase");
 var DV_TEXT = require("./dv_text");
+var CODE_PHRASE = require("./code_phrase").schema;
 
 var DV_CODED_TEXT = new mongoose.Schema({
   dv_text: DV_TEXT,

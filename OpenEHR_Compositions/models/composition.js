@@ -5,7 +5,7 @@ var CODE_PHRASE = require("./code_phrase").schema;
 var EVENT_CONTEXT = require("./event_context").schema;
 var PARTY_PROXY = require("./party_proxy").schema;
 
-var COMPOSITION = new mongoose.Schema({
+var Composition = new mongoose.Schema({
   locatable: LOCATABLE,
   language: CODE_PHRASE,
   territory: CODE_PHRASE,
@@ -15,4 +15,4 @@ var COMPOSITION = new mongoose.Schema({
   content: [LOCATABLE],
 });
 
-module.exports = mongoose.model("composition", COMPOSITION);
+module.exports = mongoose.model("Composition", Composition, "Composition");

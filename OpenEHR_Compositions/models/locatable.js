@@ -1,9 +1,9 @@
 var mongoose = require("mongoose");
-var DV_TEXT = require("./dv_text");
-var UID_BASED_ID = require("./uid_based_id");
-var LINK = require("./link");
-var ARCHETYPED = require("./archetyped");
-var FEEDER_AUDIT = require("./feeder_audit")
+var DV_TEXT = require("./dv_text").schema;
+var UID_BASED_ID = require("./uid_based_id").schema;
+var LINK = require("./link").schema;
+var ARCHETYPED = require("./archetyped").schema;
+var FEEDER_AUDIT = require("./feeder_audit").schema;
 
 var LOCATABLE = new mongoose.Schema({
   name: DV_TEXT,

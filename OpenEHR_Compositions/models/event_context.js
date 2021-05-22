@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
-var DV_CODED_TEXT = require("./dv_coded_text");
-var LOCATABLE = require("./locatable");
-var PARTY_IDENTIFIED = require("./party_identified");
-var PARTICIPATION = require("./participation");
+var DV_CODED_TEXT = require("./dv_coded_text").schema;
+const LOCATABLE = require("./locatable").schema;
+var PARTY_IDENTIFIED = require("./party_identified").schema;
+var PARTICIPATION = require("./participation").schema;
 
 var EVENT_CONTEXT = new mongoose.Schema({
   pathable: String,
@@ -15,4 +15,5 @@ var EVENT_CONTEXT = new mongoose.Schema({
   participation: [PARTICIPATION],
 });
 
+mongoose.models = {};
 module.exports = mongoose.model("event_context", EVENT_CONTEXT);

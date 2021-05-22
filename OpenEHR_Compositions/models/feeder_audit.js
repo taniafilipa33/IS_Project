@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
-var DV_IDENTIFIER = require("./dv_identifier");
-var DV_ENCAPSULATED = require("./dv_encapsulated");
-var FEEDER_AUDIT_DETAILS = require("./feeder_audit_details");
+var DV_IDENTIFIER = require("./dv_identifier").schema;
+var DV_ENCAPSULATED = require("./dv_encapsulated").schema;
+var FEEDER_AUDIT_DETAILS = require("./feeder_audit_details").schema;
 
 var FEEDER_AUDIT = new mongoose.Schema({
   originating_system_item_ids: [DV_IDENTIFIER],
