@@ -9,7 +9,7 @@ mongoose.connect(mongoDB, {
   useUnifiedTopology: true,
   useFindAndModify: false,
 });
-
+const cors = require("cors");
 var db = mongoose.connection;
 db.on("error", function () {
   console.log("Error connecting MongoDB...");
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(cors());
 app.use("/", indexRouter);
 
 module.exports = app;

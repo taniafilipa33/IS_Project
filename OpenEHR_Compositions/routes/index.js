@@ -3,8 +3,12 @@ var router = express.Router();
 var Composition = require("../controllers/compositions");
 var Versioned = require("../controllers/versioned_compositions");
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.jsonp({ message: "Hello Worldzito!" });
+router.get("/ehr", function (req, res, next) {
+  Versioned.ehr()
+    .then((dados) => {
+      res.jsonp(dados);
+    })
+    .catch((e) => console.log(e));
 });
 
 /* get compositions from one ehr */
