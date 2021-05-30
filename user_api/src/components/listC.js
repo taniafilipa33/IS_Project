@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { Route, Switch, Link, useHistory, Redirect } from "react-router-dom";
 import CRUDTable, {
   Fields,
   Field,
@@ -10,7 +10,8 @@ import CRUDTable, {
 
 // Component's Base CSS
 import "../style/index.css";
-const ListComposition = () => {
+
+export default function ListComposition(props) {
   const DescriptionRenderer = ({ field }) => <textarea {...field} />;
 
   let tasks = [
@@ -84,7 +85,7 @@ const ListComposition = () => {
     container: { margin: "auto", width: "fit-content" },
   };
 
-  const Example = () => (
+  return (
     <div style={styles.container}>
       <CRUDTable
         caption="Tasks"
@@ -163,8 +164,4 @@ const ListComposition = () => {
   );
 
   Example.propTypes = {};
-
-  return ReactDOM.render(<Example />, document.getElementById("root"));
-};
-
-export default ListComposition;
+}

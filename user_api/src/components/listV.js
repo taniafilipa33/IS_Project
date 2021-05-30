@@ -12,8 +12,8 @@ import CRUDTable, {
 import "../style/index.css";
 
 const ListVersioned = ({ idEhr }) => {
+  console.log("entrei");
   const DescriptionRenderer = ({ field }) => <textarea {...field} />;
-  // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
   fetch("http://localhost:7300/ehr/" + idEhr + "/versioned")
     .then((response) => response.json())
     .then((data) => {

@@ -9,16 +9,16 @@ function App() {
     <Router>
       <Switch>
         {
-          <Route path="/ehr/:idEhr/versioned">
+          <Route path="/ehr/versioned">
             <div className="App">
               <ListVersioned />
             </div>
           </Route>
         }
         {
-          <Route path="/ehr/:idEhr/composition">
+          <Route path="/composition">
             <div className="App">
-              <ListComposition />
+              <ListComposition path="/composition" />
             </div>
           </Route>
         }
