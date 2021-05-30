@@ -9,18 +9,16 @@ function App() {
     <Router>
       <Switch>
         {
-          <Route path="/ehr/versioned">
-            <div className="App">
-              <ListVersioned />
-            </div>
-          </Route>
+          <Route
+            path="/ehr/:id/versioned"
+            render={(props) => <ListVersioned {...props} />}
+          ></Route>
         }
         {
-          <Route path="/composition">
-            <div className="App">
-              <ListComposition path="/composition" />
-            </div>
-          </Route>
+          <Route
+            path="/ehr/:id/composition"
+            render={(props) => <ListComposition {...props} />}
+          ></Route>
         }
         {
           <Route path="/ehr">

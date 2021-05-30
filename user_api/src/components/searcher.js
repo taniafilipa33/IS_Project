@@ -2,8 +2,6 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import ListVersioned from "./listV";
-//import axios from "axios";
 
 class Search extends Component {
   constructor(props) {
@@ -16,8 +14,8 @@ class Search extends Component {
     console.log("fui chamado");
     console.log(document.getElementById("free-solo-2-demo").value);
     //this.idEhr = document.getElementById("free-solo-2-demo").value;
-    window.location =
-      "https://localhost:3000/ehr/" +
+    window.location.href =
+      "http://localhost:3000/ehr/" +
       document.getElementById("free-solo-2-demo").value +
       "/versioned";
   }

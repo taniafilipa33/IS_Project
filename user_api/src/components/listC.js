@@ -1,5 +1,4 @@
 import React from "react";
-import { Route, Switch, Link, useHistory, Redirect } from "react-router-dom";
 import CRUDTable, {
   Fields,
   Field,
@@ -12,6 +11,8 @@ import CRUDTable, {
 import "../style/index.css";
 
 export default function ListComposition(props) {
+  const { id } = props.match.params;
+  console.log(id);
   const DescriptionRenderer = ({ field }) => <textarea {...field} />;
 
   let tasks = [
@@ -162,6 +163,4 @@ export default function ListComposition(props) {
       </CRUDTable>
     </div>
   );
-
-  Example.propTypes = {};
 }
