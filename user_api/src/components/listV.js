@@ -19,7 +19,40 @@ class ListVersioned extends Component {
     this.id = props.match.params;
     this.DescriptionRenderer = ({ field }) => <textarea {...field} />;
     this.idEhr = "";
-
+    this.SORTERS = {
+      NUMBER_ASCENDING: (mapper) => (a, b) => mapper(a) - mapper(b),
+      NUMBER_DESCENDING: (mapper) => (a, b) => mapper(b) - mapper(a),
+      STRING_ASCENDING: (mapper) => (a, b) =>
+        mapper(a).localeCompare(mapper(b)),
+      STRING_DESCENDING: (mapper) => (a, b) =>
+        mapper(b).localeCompare(mapper(a)),
+    };
+    this.service = {
+      fetchItems: (payload) => {
+        let result = Array.from(this.state.tasks);
+        result = result.sort(this.getSorter(payload.sort));
+        return Promise.resolve(result);
+      },
+      create: (task) => {
+        this.count += 1;
+        this.state.tasks.push({
+          ...task,
+          id: this.count,
+        });
+        return Promise.resolve(task);
+      },
+      update: (data) => {
+        const task = this.state.tasks.find((t) => t.id === data.id);
+        task.title = data.title;
+        task.description = data.description;
+        return Promise.resolve(task);
+      },
+      delete: (data) => {
+        const task = this.state.tasks.find((t) => t.id === data.id);
+        this.state.tasks = this.state.tasks.filter((t) => t.id !== task.id);
+        return Promise.resolve(task);
+      },
+    };
     this.styles = {
       container: { margin: "auto", width: "fit-content" },
     };
@@ -55,58 +88,23 @@ class ListVersioned extends Component {
         this.setState({ tasks: resp });
         this.count = this.state.tasks.length;
         console.log(this.state.tasks);
-        this.SORTERS = {
-          NUMBER_ASCENDING: (mapper) => (a, b) => mapper(a) - mapper(b),
-          NUMBER_DESCENDING: (mapper) => (a, b) => mapper(b) - mapper(a),
-          STRING_ASCENDING: (mapper) => (a, b) =>
-            mapper(a).localeCompare(mapper(b)),
-          STRING_DESCENDING: (mapper) => (a, b) =>
-            mapper(b).localeCompare(mapper(a)),
-        };
-        this.service = {
-          fetchItems: (payload) => {
-            let result = Array.from(this.state.tasks);
-            console.log("dentro do fetchItems" + this.state.tasks);
-            result = result.sort(this.getSorter(payload.sort));
-            return Promise.resolve(result);
-          },
-          create: (task) => {
-            this.count += 1;
-            this.state.tasks.push({
-              ...task,
-              id: this.count,
-            });
-            return Promise.resolve(task);
-          },
-          update: (data) => {
-            const task = this.state.tasks.find((t) => t.id === data.id);
-            task.title = data.title;
-            task.description = data.description;
-            return Promise.resolve(task);
-          },
-          delete: (data) => {
-            const task = this.state.tasks.find((t) => t.id === data.id);
-            this.state.tasks = this.state.tasks.filter((t) => t.id !== task.id);
-            return Promise.resolve(task);
-          },
-        };
-
-        this.setState({ isLoading: false });
       });
   }
 
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     this.callAPI();
+    this.setState({ isLoading: false });
   }
 
   render() {
     if (this.state.isLoading === true) {
       return (
         <div>
-          <h1>login...</h1>
+          <h1>loading...</h1>
         </div>
       );
-    } else {
+    }
+    if (this.state.isLoading === false) {
       return (
         <div style={this.styles.container}>
           <CRUDTable
