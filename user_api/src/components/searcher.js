@@ -43,7 +43,7 @@ class Search extends Component {
 
   render() {
     return (
-      <div style={{ width: 300 }}>
+      <div style={{ width: 600 }}>
         <Autocomplete
           freeSolo
           id="free-solo-2-demo"

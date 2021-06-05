@@ -1,8 +1,15 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+} from "react-router-dom";
 import "./style/App.css";
 import Searcher from "./components/searcher";
 import ListVersioned from "./components/listV";
 import ListComposition from "./components/listC";
+
+import Landing from "./views/Landing.js";
 
 function App() {
   return (
@@ -23,10 +30,12 @@ function App() {
         {
           <Route path="/ehr">
             <div className="App">
-              <Searcher />
+              <Landing />
             </div>
           </Route>
         }
+        {/* add redirect for first page */}
+        <Redirect from="/" to="/ehr" />
       </Switch>
     </Router>
   );

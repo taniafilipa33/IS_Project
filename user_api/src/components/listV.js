@@ -9,7 +9,7 @@ import CRUDTable, {
 } from "react-crud-table";
 
 // Component's Base CSS
-import "../style/index.css";
+import "../index.css";
 
 class ListVersioned extends Component {
   constructor(props) {
