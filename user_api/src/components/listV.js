@@ -27,32 +27,7 @@ class ListVersioned extends Component {
       STRING_DESCENDING: (mapper) => (a, b) =>
         mapper(b).localeCompare(mapper(a)),
     };
-    this.service = {
-      fetchItems: (payload) => {
-        let result = Array.from(this.state.tasks);
-        result = result.sort(this.getSorter(payload.sort));
-        return Promise.resolve(result);
-      },
-      create: (task) => {
-        this.count += 1;
-        this.state.tasks.push({
-          ...task,
-          id: this.count,
-        });
-        return Promise.resolve(task);
-      },
-      update: (data) => {
-        const task = this.state.tasks.find((t) => t.id === data.id);
-        task.title = data.title;
-        task.description = data.description;
-        return Promise.resolve(task);
-      },
-      delete: (data) => {
-        const task = this.state.tasks.find((t) => t.id === data.id);
-        this.state.tasks = this.state.tasks.filter((t) => t.id !== task.id);
-        return Promise.resolve(task);
-      },
-    };
+
     this.styles = {
       container: { margin: "auto", width: "fit-content" },
     };
@@ -87,13 +62,49 @@ class ListVersioned extends Component {
         });
         this.setState({ tasks: resp });
         this.count = this.state.tasks.length;
-        console.log(this.state.tasks);
+        this.valores = [];
+        this.state.tasks.forEach((e) => {
+          console.log(e);
+          var h = {};
+          h.id = e.uid.value;
+          h.type = e._type;
+          h.Otype = e.owner_id.type;
+          this.valores.push(h);
+        });
+        this.service = {
+          fetchItems: (payload) => {
+            let result = new Array(this.valores);
+
+            result = result[0].sort(this.getSorter(payload.sort));
+            console.log(result);
+            return Promise.resolve(result);
+          },
+          create: (task) => {
+            this.count += 1;
+            this.state.tasks.push({
+              ...task,
+              id: this.count,
+            });
+            return Promise.resolve(task);
+          },
+          update: (data) => {
+            const task = this.state.tasks.find((t) => t.id === data.id);
+            task.title = data.title;
+            task.description = data.description;
+            return Promise.resolve(task);
+          },
+          delete: (data) => {
+            const task = this.state.tasks.find((t) => t.id === data.id);
+            this.state.tasks = this.state.tasks.filter((t) => t.id !== task.id);
+            return Promise.resolve(task);
+          },
+        };
+        this.setState({ isLoading: false });
       });
   }
 
   UNSAFE_componentWillMount() {
     this.callAPI();
-    this.setState({ isLoading: false });
   }
 
   render() {
@@ -112,13 +123,9 @@ class ListVersioned extends Component {
             fetchItems={(payload) => this.service.fetchItems(payload)}
           >
             <Fields>
-              <Field name="uid" label="Id" hideInCreateForm readOnly />
+              <Field name="id" label="Id" hideInCreateForm readOnly />
               <Field name="type" label="Type" placeholder="Type" />
-              <Field
-                name="owner_id"
-                label="Owner Type"
-                render={this.DescriptionRenderer}
-              />
+              <Field name="Otype" label="Owner Type" />
             </Fields>
             <CreateForm
               title="Versioned Creation"

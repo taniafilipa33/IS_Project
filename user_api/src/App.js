@@ -5,10 +5,9 @@ import {
   Route,
 } from "react-router-dom";
 import "./style/App.css";
-import Searcher from "./components/searcher";
-import ListVersioned from "./components/listV";
-import ListComposition from "./components/listC";
 
+import Composition from "./views/Compositions";
+import Versioned from "./views/Versioned";
 import Landing from "./views/Landing.js";
 
 function App() {
@@ -18,13 +17,13 @@ function App() {
         {
           <Route
             path="/ehr/:id/versioned"
-            render={(props) => <ListVersioned {...props} />}
+            render={(props) => <Versioned {...props} />}
           ></Route>
         }
         {
           <Route
             path="/ehr/:id/composition"
-            render={(props) => <ListComposition {...props} />}
+            render={(props) => <Composition {...props} />}
           ></Route>
         }
         {
