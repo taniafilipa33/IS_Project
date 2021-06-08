@@ -16,14 +16,14 @@ function App() {
       <Switch>
         {
           <Route
-            path="/ehr/:id/versioned"
-            render={(props) => <Versioned {...props} />}
+            path="/ehr/:id/versioned/:idV/composition"
+            render={(props) => <Composition {...props} />}
           ></Route>
         }
         {
           <Route
-            path="/ehr/:id/composition"
-            render={(props) => <Composition {...props} />}
+            path="/ehr/:id/versioned"
+            render={(props) => <Versioned {...props} />}
           ></Route>
         }
         {

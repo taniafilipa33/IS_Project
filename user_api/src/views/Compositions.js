@@ -5,8 +5,9 @@ import React from "react";
 import Navbar from "../components/Navbars/IndexNavbar.js";
 import Footer from "../components/Footers/Footer.js";
 import ListC from "../components/listC";
+import Info from "../components/Info";
 
-export default function Composition() {
+export default function versioned(props) {
   return (
     <>
       <Navbar />
@@ -20,8 +21,54 @@ export default function Composition() {
                 "url('https://www.healtheuropa.eu/wp-content/uploads/2018/04/Electronic-Health-Records.jpg')",
             }}
           ></div>
-          <ListC />
+          <div className="container relative mx-auto">
+            <div className="items-center flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                <div className="pr-12">
+                  <h1 className="text-blue font-semibold text-5xl">
+                    EHR records
+                  </h1>
+                  <p className="mt-4 text-lg text-blue">
+                    REST API for maintainment of Compositions from EHR records
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+            style={{ transform: "translateZ(0)" }}
+          >
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-blueGray-200 fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
         </div>
+
+        <Info />
+
+        <section className="pb-20 bg-blueGray-200 -mt-24">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                <div className="px-4 py-5 flex-auto">
+                  <ListC {...props} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

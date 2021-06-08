@@ -83,11 +83,17 @@ class ListComposition extends Component {
   }
 
   callAPI() {
-    fetch("http://localhost:7300/ehr/" + this.id + "/composition")
+    fetch(
+      "http://localhost:7300/ehr/" +
+        this.id +
+        "/versioned/" +
+        this.versioned +
+        "/composition"
+    )
       .then((res) => res.text())
       .then((res) => {
         var resp = [];
-        console.log(JSON.parse(res));
+        console.log("humm hellooo:" + JSON.parse(res));
         JSON.parse(res).map((ele) => {
           resp.push(ele);
         });
