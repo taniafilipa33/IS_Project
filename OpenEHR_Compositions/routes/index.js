@@ -48,11 +48,25 @@ router.get(
 router.get(
   "/ehr/:idEHR/versioned/:versioned_object_uid",
   function (req, res, next) {
-    Versioned.getVersioned(req.params.idEHR, req.params.versioned_object_uid)
+    Versioned.lookUpID(req.params.versioned_object_uid, req.params.idEHR,)
       .then((dados) => {
         res.jsonp(dados);
       })
       .catch((e) => console.log(e));
   }
 );
+
+
+router.get(
+  "/ehr/:idEHR/versioned/:versioned_object_uid/composition",
+  function (req, res, next) {
+    Composition.lookUpID(req.params.versioned_object_uid )
+      .then((dados) => {
+        res.jsonp(dados);
+      })
+      .catch((e) => console.log(e));
+  }
+);
+
+
 module.exports = router;

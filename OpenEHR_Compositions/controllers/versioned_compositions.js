@@ -9,7 +9,7 @@ module.exports.list = function (idEHR) {
       $and: [
         {
           "owner_id.type": "EHR",
-          "owner_id.id.value": "7d44b88c-4199-4bad-97dc-d78268e01398",
+          "owner_id.id.value": idEHR,
         },
       ],
     },
@@ -30,6 +30,6 @@ module.exports.ehr = function () {
 };
 
 // Retorna um Versioned por id
-module.exports.lookUpID = function (u) {
-  return Versioned.findOne({ _id: u }).exec();
+module.exports.lookUpID = function (u, idEhr) {
+  return Versioned.find( {$and: [{  "uid.value" : u, "owner_id.id.value": idEhr },],},{}).exec();
 };

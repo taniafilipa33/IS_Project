@@ -14,5 +14,5 @@ module.exports.lookUp = function (u) {
 
 // Retorna um Composition por id
 module.exports.lookUpID = function (u) {
-  return Composition.findOne({ _id: u }).exec();
+  return Composition.find( { "uid.value" : { $regex : u}}).exec();
 };
