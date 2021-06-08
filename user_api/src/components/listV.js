@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Button from '@material-ui/core/Button';
 import CRUDTable, {
   Fields,
   Field,
@@ -37,7 +37,7 @@ class ListVersioned extends Component {
     const mapper = (x) => x[data.field];
     let sorter = this.SORTERS.STRING_ASCENDING(mapper);
 
-    if (data.field === "id") {
+    if (data.field === "Id") {
       sorter =
         data.direction === "ascending"
           ? this.SORTERS.NUMBER_ASCENDING(mapper)
@@ -52,11 +52,12 @@ class ListVersioned extends Component {
   }
 
   callAPI() {
-    fetch("http://localhost:7300/ehr/" + this.id + "/versioned")
+    console.log(this.id.id)
+    fetch("http://localhost:7300/ehr/" + this.id.id + "/versioned")
       .then((res) => res.text())
       .then((res) => {
         var resp = [];
-        //console.log(JSON.parse(res));
+        console.log(JSON.parse(res));
         JSON.parse(res).map((ele) => {
           resp.push(ele);
         });
@@ -116,6 +117,7 @@ class ListVersioned extends Component {
       );
     }
     if (this.state.isLoading === false) {
+      console.log(this.state.tasks)
       return (
         <div style={this.styles.container}>
           <CRUDTable
@@ -127,6 +129,7 @@ class ListVersioned extends Component {
               <Field name="type" label="Type" placeholder="Type" />
               <Field name="Otype" label="Owner Type" />
             </Fields>
+
             <CreateForm
               title="Versioned Creation"
               message="Start a new Record"
@@ -147,6 +150,13 @@ class ListVersioned extends Component {
                 return errors;
               }}
             />
+
+            <Field name="Open" label="Open">
+              <Button variant="contained" color="secondary" placeholder="open">
+                    Open
+                  </Button>
+
+              </Field>
 
             <UpdateForm
               title="Task Update Process"
