@@ -1,9 +1,15 @@
 var mongoose = require("mongoose");
-var DV_TEXT = require("./dv_text");
+var DV_URI = require("./dv_uri");
+var TERM_MAPPING = require("./term_mapping");
 var CODE_PHRASE = require("./code_phrase").schema;
 
 var DV_CODED_TEXT = new mongoose.Schema({
-  dv_text: DV_TEXT,
+  value: String,
+  hyperlink: DV_URI,
+  formatting: String,
+  mappings: [TERM_MAPPING],
+  language: CODE_PHRASE,
+  encoding: CODE_PHRASE,
   defining_code: CODE_PHRASE,
 });
 

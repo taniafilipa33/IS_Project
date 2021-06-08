@@ -10,8 +10,8 @@ var Composition = new mongoose.Schema({
   language: CODE_PHRASE,
   territory: CODE_PHRASE,
   category: DV_CODED_TEXT,
-  context: EVENT_CONTEXT,
   composer: PARTY_PROXY,
+  context: EVENT_CONTEXT,
   content: [LOCATABLE],
 });
 

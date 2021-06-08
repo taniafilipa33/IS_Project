@@ -1,16 +1,15 @@
 var mongoose = require("mongoose");
 var DV_CODED_TEXT = require("./dv_coded_text").schema;
-const LOCATABLE = require("./locatable").schema;
+const ITEM_STRUCTURE = require("./locatable").schema;
 var PARTY_IDENTIFIED = require("./party_identified").schema;
 var PARTICIPATION = require("./participation").schema;
 
 var EVENT_CONTEXT = new mongoose.Schema({
-  pathable: String,
-  start_time: String,
+  start_time: Date,
   end_time: Date,
-  location: Date,
+  location: String,
   setting: DV_CODED_TEXT,
-  other_context: LOCATABLE,
+  other_context: ITEM_STRUCTURE,
   health_care_facility: [PARTY_IDENTIFIED],
   participation: [PARTICIPATION],
 });

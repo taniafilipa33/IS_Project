@@ -5,13 +5,14 @@ var LINK = require("./link").schema;
 var ARCHETYPED = require("./archetyped").schema;
 var FEEDER_AUDIT = require("./feeder_audit").schema;
 
-var LOCATABLE = new mongoose.Schema({
+var EVENT_CONTEXT = new mongoose.Schema({
   name: DV_TEXT,
   uid: UID_BASED_ID,
   links: [LINK],
-  archetype_details: ARCHETYPED,
-  feeder_audit: FEEDER_AUDIT,
-  archetype_node_id: String,
+  archetypeDetails: ARCHETYPED,
+  feederAudit: FEEDER_AUDIT,
+  archetypeNodeId: String,
 });
 
-module.exports = mongoose.model("locatable", LOCATABLE);
+mongoose.models = {};
+module.exports = mongoose.model("event_context", EVENT_CONTEXT);
