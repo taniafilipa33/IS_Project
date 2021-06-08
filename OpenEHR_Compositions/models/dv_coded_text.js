@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var DV_URI = require("./dv_uri");
+var DV_URI = require("./dv_uri").schema;
 var TERM_MAPPING = require("./term_mapping");
 var CODE_PHRASE = require("./code_phrase").schema;
 
