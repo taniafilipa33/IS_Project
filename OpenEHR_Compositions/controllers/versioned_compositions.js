@@ -23,13 +23,13 @@ module.exports.lookUp = function (u) {
 };
 
 module.exports.ehr = function () {
-  return Versioned.find(
-    { "owner_id.type": "EHR" },
-    { "owner_id.id.value": 1 }
-  ).exec();
+  return Versioned.find().exec();
 };
 
 // Retorna um Versioned por id
 module.exports.lookUpID = function (u, idEhr) {
-  return Versioned.find( {$and: [{  "uid.value" : u, "owner_id.id.value": idEhr },],},{}).exec();
+  return Versioned.find(
+    { $and: [{ "uid.value": u, "owner_id.id.value": idEhr }] },
+    {}
+  ).exec();
 };

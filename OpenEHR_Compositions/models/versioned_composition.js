@@ -8,7 +8,7 @@ var VERSIONED_COMPOSITION = new mongoose.Schema({
   locatable: LOCATABLE,
   uid: CODE_PHRASE,
   owner_id: Object_REF,
-  time_created: Date,
+  time_created: String,
 });
 
 module.exports = mongoose.model(

@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-import Button from '@material-ui/core/Button';
-import CRUDTable, {
-  Fields,
-  Field,
-  CreateForm,
-  UpdateForm,
-  DeleteForm,
-} from "react-crud-table";
+import PropTypes from "prop-types";
 
 // Component's Base CSS
 import "../index.css";
+import TableDropdown from "./TableDropdown";
 
 class ListVersioned extends Component {
   constructor(props) {
     super(props);
     this.count = 0;
+    this.color = "light";
     this.state = { tasks: [], isLoading: true };
     this.id = props.match.params;
     this.DescriptionRenderer = ({ field }) => <textarea {...field} />;
@@ -52,7 +47,7 @@ class ListVersioned extends Component {
   }
 
   callAPI() {
-    console.log(this.id.id)
+    console.log(this.id.id);
     fetch("http://localhost:7300/ehr/" + this.id.id + "/versioned")
       .then((res) => res.text())
       .then((res) => {
@@ -117,88 +112,146 @@ class ListVersioned extends Component {
       );
     }
     if (this.state.isLoading === false) {
-      console.log(this.state.tasks)
+      console.log(this.state.tasks);
       return (
-        <div style={this.styles.container}>
-          <CRUDTable
-            caption="Versioned Compositions"
-            fetchItems={(payload) => this.service.fetchItems(payload)}
+        <>
+          <div
+            className={
+              "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
+              (this.color === "light"
+                ? "bg-white"
+                : "bg-lightBlue-900 text-white")
+            }
           >
-            <Fields>
-              <Field name="id" label="Id" hideInCreateForm readOnly />
-              <Field name="type" label="Type" placeholder="Type" />
-              <Field name="Otype" label="Owner Type" />
-            </Fields>
-
-            <CreateForm
-              title="Versioned Creation"
-              message="Start a new Record"
-              trigger="Create Versioned Composition"
-              onSubmit={(task) => this.service.create(task)}
-              submitText="Create"
-              validate={(values) => {
-                const errors = {};
-                values.owner_id = this.id;
-                if (!values.title) {
-                  errors.title = "Please, provide task's title";
-                }
-
-                if (!values.description) {
-                  errors.description = "Please, provide task's description";
-                }
-
-                return errors;
-              }}
-            />
-
-            <Field name="Open" label="Open">
-              <Button variant="contained" color="secondary" placeholder="open">
-                    Open
-                  </Button>
-
-              </Field>
-
-            <UpdateForm
-              title="Task Update Process"
-              message="Update task"
-              trigger="Update"
-              onSubmit={(task) => this.service.update(task)}
-              submitText="Update"
-              validate={(values) => {
-                const errors = {};
-
-                if (!values.id) {
-                  errors.id = "Please, provide id";
-                }
-
-                if (!values.title) {
-                  errors.title = "Please, provide task's title";
-                }
-
-                if (!values.description) {
-                  errors.description = "Please, provide task's description";
-                }
-
-                return errors;
-              }}
-            />
-
-            <DeleteForm
-              title="Task Delete Process"
-              message="Are you sure you want to delete the task?"
-              trigger="Delete"
-              onSubmit={(task) => this.service.delete(task)}
-              submitText="Delete"
-              validate={(values) => {
-                const errors = {};
-                if (!values.id) {
-                  errors.id = "Please, provide id";
-                }
-                return errors;
-              }}
-            />
-          </CRUDTable>
-        </div>
+            <div className="rounded-t mb-0 px-4 py-3 border-0">
+              <div className="flex flex-wrap items-center">
+                <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+                  <h3
+                    className={
+                      "font-semibold text-lg " +
+                      (this.color === "light"
+                        ? "text-blueGray-700"
+                        : "text-white")
+                    }
+                  >
+                    Versioned Compositions
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div className="block w-full overflow-x-auto">
+              {/* Projects table */}
+              <table className="items-center w-full bg-transparent border-collapse">
+                <thead>
+                  <tr>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      ID
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Type
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Time Created
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Number of Versions
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Namespace
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.tasks.map((headCell) => (
+                    <tr>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {headCell.uid.value}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {headCell._type}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {headCell._type}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                        <span
+                          className={
+                            "ml-3 font-bold " +
+                            +(this.color === "light"
+                              ? "text-blueGray-600"
+                              : "text-white")
+                          }
+                        >
+                          Argon Design System
+                        </span>
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                        <span
+                          className={
+                            "ml-3 font-bold " +
+                            +(this.color === "light"
+                              ? "text-blueGray-600"
+                              : "text-white")
+                          }
+                        >
+                          Argon Design System
+                        </span>
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                        <TableDropdown />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
       );
     }
   }
