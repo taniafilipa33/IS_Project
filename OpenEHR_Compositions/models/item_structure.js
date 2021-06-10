@@ -5,7 +5,7 @@ var LINK = require("./link").schema;
 var ARCHETYPED = require("./archetyped").schema;
 var FEEDER_AUDIT = require("./feeder_audit").schema;
 
-var EVENT_CONTEXT = new mongoose.Schema({
+var ITEM_STRUCTURE = new mongoose.Schema({
   name: DV_TEXT,
   uid: UID_BASED_ID,
   links: [LINK],
@@ -15,4 +15,4 @@ var EVENT_CONTEXT = new mongoose.Schema({
 });
 
 mongoose.models = {};
-module.exports = mongoose.model("event_context", EVENT_CONTEXT);
+module.exports = mongoose.model("item_structure", ITEM_STRUCTURE);

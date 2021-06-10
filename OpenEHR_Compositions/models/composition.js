@@ -12,7 +12,7 @@ var Composition = new mongoose.Schema({
   category: DV_CODED_TEXT,
   composer: PARTY_PROXY,
   context: EVENT_CONTEXT,
-  content: [LOCATABLE],
+  content: [CONTENT_ITEM],
 });
 
 module.exports = mongoose.model("Composition", Composition, "Composition");
