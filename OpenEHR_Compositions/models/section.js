@@ -10,9 +10,9 @@ var INSTRUCTION = require("./instruction").schema;
 var VIEW_SECTION = require("./view_section").schema;
 var CITATION = require("./citation").schema;
 
-var OBSERVATION = new mongoose.Schema({
+var SECTION = new mongoose.Schema({
   locatable: LOCATABLE,
-  items: [GENERIC_ENTRY | SECTION | EVALUATION | OBSERVATION | ADMIN_ENTRY | ACTION | INSTRUCTION | VIEW_SECTION | CITATION]
+  items: [SECTION | EVALUATION | OBSERVATION | ADMIN_ENTRY | ACTION | INSTRUCTION | CITATION]
 });
 
-module.exports = mongoose.model("observation", OBSERVATION);
+module.exports = mongoose.model("section", SECTION);
