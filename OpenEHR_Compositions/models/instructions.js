@@ -5,8 +5,11 @@ var CODE_PHRASE = require("./code_phrase").schema;
 var ITEM_STRUCTURE = require("./item_structure").schema;
 var PARTY_PROXY = require("./party_proxy").schema;
 var OBJECT_REF = require("./object_ref").schema;
+var DV_TEXT = require("./dv_text").schema;
+var DV_PARSABLE = require("./dv_parsable").schema;
+var ACTIVITY = require("./activity").schema;
 
-var EVALUATIONS = new mongoose.Schema({
+var INSTRUCTIONS = new mongoose.Schema({
   locatable: LOCATABLE,
   language: CODE_PHRASE,
   encoding: CODE_PHRASE,
@@ -22,6 +25,4 @@ var EVALUATIONS = new mongoose.Schema({
   activities: [ACTIVITY],
 });
 
-module.exports = mongoose.model("evaluations", EVALUATIONS, "evaluations");
-
-"VIEW_SECTION", "CITATION";
+module.exports = mongoose.model("instructions", INSTRUCTIONS, "instructions");

@@ -7,7 +7,7 @@ var HISTORY_OF_ITEM_STRUCTURE = new mongoose.Schema({
   locatable: LOCATABLE,
   origin: Date,
   period: DV_DURATION,
-  duration: DV_DURATON,
+  duration: DV_DURATION,
   summary: ITEM_STRUCTURE
 });
 
