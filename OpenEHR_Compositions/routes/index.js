@@ -6,7 +6,6 @@ var Versioned = require("../controllers/versioned_compositions");
 router.get("/ehr", function (req, res, next) {
   Versioned.ehr()
     .then((dados) => {
-      console.log(dados);
       res.jsonp(dados);
     })
     .catch((e) => console.log(e));

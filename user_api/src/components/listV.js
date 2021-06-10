@@ -65,6 +65,8 @@ class ListVersioned extends Component {
           h.id = e.uid.value;
           h.type = e._type;
           h.Otype = e.owner_id.type;
+          h.namespace = e.owner_id.namespace;
+          h.time_created = e.timeCreated.value;
           this.valores.push(h);
         });
         this.service = {
@@ -216,34 +218,17 @@ class ListVersioned extends Component {
                         {headCell._type}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {headCell._type}
+                        {headCell.timeCreated.value}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                        <span
-                          className={
-                            "ml-3 font-bold " +
-                            +(this.color === "light"
-                              ? "text-blueGray-600"
-                              : "text-white")
-                          }
-                        >
                           Argon Design System
-                        </span>
                       </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                        <span
-                          className={
-                            "ml-3 font-bold " +
-                            +(this.color === "light"
-                              ? "text-blueGray-600"
-                              : "text-white")
-                          }
-                        >
-                          Argon Design System
-                        </span>
-                      </td>
+                      <td
+                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                        {headCell.owner_id.namespace}
+                    </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                        <TableDropdown />
+                        <TableDropdown/>
                       </td>
                     </tr>
                   ))}

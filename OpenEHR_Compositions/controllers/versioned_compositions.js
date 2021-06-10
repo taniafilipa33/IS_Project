@@ -23,7 +23,7 @@ module.exports.lookUp = function (u) {
 };
 
 module.exports.ehr = function () {
-  return Versioned.find({},{}).exec();
+  return Versioned.find().exec();
 };
 
 // Retorna um Versioned por id
