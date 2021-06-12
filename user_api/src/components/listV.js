@@ -184,16 +184,6 @@ class ListVersioned extends Component {
                           : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                       }
                     >
-                      Number of Versions
-                    </th>
-                    <th
-                      className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (this.color === "light"
-                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                      }
-                    >
                       Namespace
                     </th>
                     <th
@@ -220,15 +210,12 @@ class ListVersioned extends Component {
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {headCell.timeCreated.value}
                       </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                          Argon Design System
-                      </td>
                       <td
                       className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
                         {headCell.owner_id.namespace}
                     </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                        <TableDropdown/>
+                        <TableDropdown id={headCell.uid.value}/>
                       </td>
                     </tr>
                   ))}

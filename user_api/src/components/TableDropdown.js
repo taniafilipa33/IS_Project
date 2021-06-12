@@ -1,7 +1,8 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
+import { Redirect } from 'react-router'
 
-const NotificationDropdown = () => {
+const NotificationDropdown = (props) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -26,7 +27,7 @@ const NotificationDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        <i className="fas fa-ellipsis-v"></i>
+        <i className="fa fa-ellipsis-v"></i>
       </a>
       <div
         ref={popoverDropdownRef}
@@ -36,13 +37,13 @@ const NotificationDropdown = () => {
         }
       >
         <a
-          href="#pablo"
+          href=  {"versioned/" + props.id + "/composition"}
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={<Redirect to = {"versioned/" + props.id + "/composition"}/>}
         >
-          Action
+          Open
         </a>
         <a
           href="#pablo"
@@ -51,16 +52,7 @@ const NotificationDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Another action
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Something else here
+          Delete
         </a>
       </div>
     </>

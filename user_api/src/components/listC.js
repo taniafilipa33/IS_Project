@@ -1,26 +1,19 @@
 import React, { Component } from "react";
-import CRUDTable, {
-  Fields,
-  Field,
-  CreateForm,
-  UpdateForm,
-  DeleteForm,
-} from "react-crud-table";
+import PropTypes from "prop-types";
 
 // Component's Base CSS
 import "../index.css";
+import TableDropdown from "./TableDropdown";
 
-class ListComposition extends Component {
+class ListVersioned extends Component {
   constructor(props) {
     super(props);
-    this.is = props.match.params;
-    console.log(this.id);
-    this.state = {
-      isLoading: true,
-      tasks: [],
-    };
-
+    this.count = 0;
+    this.color = "light";
+    this.state = { tasks: [], isLoading: true };
+    this.id = props.match.params;
     this.DescriptionRenderer = ({ field }) => <textarea {...field} />;
+    this.idEhr = "";
     this.SORTERS = {
       NUMBER_ASCENDING: (mapper) => (a, b) => mapper(a) - mapper(b),
       NUMBER_DESCENDING: (mapper) => (a, b) => mapper(b) - mapper(a),
@@ -29,80 +22,87 @@ class ListComposition extends Component {
       STRING_DESCENDING: (mapper) => (a, b) =>
         mapper(b).localeCompare(mapper(a)),
     };
-    this.getSorter = (data) => {
-      const mapper = (x) => x[data.field];
-      let sorter = this.SORTERS.STRING_ASCENDING(mapper);
 
-      if (data.field === "id") {
-        sorter =
-          data.direction === "ascending"
-            ? this.SORTERS.NUMBER_ASCENDING(mapper)
-            : this.SORTERS.NUMBER_DESCENDING(mapper);
-      } else {
-        sorter =
-          data.direction === "ascending"
-            ? this.SORTERS.STRING_ASCENDING(mapper)
-            : this.SORTERS.STRING_DESCENDING(mapper);
-      }
-
-      return sorter;
-    };
-    this.service = {
-      fetchItems: (payload) => {
-        let result = Array.from(this.state.tasks);
-        result = result.sort(this.getSorter(payload.sort));
-        return Promise.resolve(result);
-      },
-      create: (task) => {
-        this.count += 1;
-        this.state.tasks.push({
-          ...task,
-          id: this.count,
-        });
-        return Promise.resolve(task);
-      },
-      update: (data) => {
-        const task = this.state.tasks.find((t) => t.id === data.id);
-        task.title = data.title;
-        task.description = data.description;
-        return Promise.resolve(task);
-      },
-      delete: (data) => {
-        const task = this.state.tasks.find((t) => t.id === data.id);
-        this.state.tasks = this.state.tasks.filter((t) => t.id !== task.id);
-        return Promise.resolve(task);
-      },
-    };
     this.styles = {
       container: { margin: "auto", width: "fit-content" },
     };
   }
-  UNSAFE_componentWillMount() {
-    this.callAPI();
-    this.setState({ isLoading: false });
+
+  getSorter(data) {
+    const mapper = (x) => x[data.field];
+    let sorter = this.SORTERS.STRING_ASCENDING(mapper);
+
+    if (data.field === "Id") {
+      sorter =
+        data.direction === "ascending"
+          ? this.SORTERS.NUMBER_ASCENDING(mapper)
+          : this.SORTERS.NUMBER_DESCENDING(mapper);
+    } else {
+      sorter =
+        data.direction === "ascending"
+          ? this.SORTERS.STRING_ASCENDING(mapper)
+          : this.SORTERS.STRING_DESCENDING(mapper);
+    }
+    return sorter;
   }
 
   callAPI() {
-    fetch(
-      "http://localhost:7300/ehr/" +
-        this.id +
-        "/versioned/" +
-        this.versioned +
-        "/composition"
-    )
+    console.log(this.id.idV);
+    fetch("http://localhost:7300/ehr/"+ this.id.id+"/versioned/" + this.id.idV + "/composition" )
       .then((res) => res.text())
       .then((res) => {
         var resp = [];
-        console.log("humm hellooo:" + JSON.parse(res));
+        console.log("res===", JSON.parse(res));
         JSON.parse(res).map((ele) => {
           resp.push(ele);
         });
         this.setState({ tasks: resp });
         this.count = this.state.tasks.length;
-        console.log(this.state.tasks);
+        this.valores = [];
+        this.state.tasks.forEach((e) => {
+          console.log(e);
+          var h = {};
+          h.name = e.name.value;
+          h.archetyped_id = e.archetype_details.archetype_id
+          h.template_id = e.archetype_details.template_id
+          h.category = e.category.value
+          h.start_time = e.context.startTime.value
+          this.valores.push(h);
+        });
+        this.service = {
+          fetchItems: (payload) => {
+            let result = new Array(this.valores);
 
+            result = result[0].sort(this.getSorter(payload.sort));
+            console.log(result);
+            return Promise.resolve(result);
+          },
+          create: (task) => {
+            this.count += 1;
+            this.state.tasks.push({
+              ...task,
+              id: this.count,
+            });
+            return Promise.resolve(task);
+          },
+          update: (data) => {
+            const task = this.state.tasks.find((t) => t.id === data.id);
+            task.title = data.title;
+            task.description = data.description;
+            return Promise.resolve(task);
+          },
+          delete: (data) => {
+            const task = this.state.tasks.find((t) => t.id === data.id);
+            this.state.tasks = this.state.tasks.filter((t) => t.id !== task.id);
+            return Promise.resolve(task);
+          },
+        };
         this.setState({ isLoading: false });
       });
+  }
+
+  UNSAFE_componentWillMount() {
+    this.callAPI();
   }
 
   render() {
@@ -112,85 +112,149 @@ class ListComposition extends Component {
           <h1>loading...</h1>
         </div>
       );
-    } else {
+    }
+    if (this.state.isLoading === false) {
+      console.log(this.state.tasks);
       return (
-        <div style={this.styles.container}>
-          <CRUDTable
-            caption="Tasks"
-            fetchItems={(payload) => this.service.fetchItems(payload)}
+        <>
+          <div
+            className={
+              "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
+              (this.color === "light"
+                ? "bg-white"
+                : "bg-lightBlue-900 text-white")
+            }
           >
-            <Fields>
-              <Field name="id" label="Id" hideInCreateForm readOnly />
-              <Field name="title" label="Title" placeholder="Title" />
-              <Field
-                name="description"
-                label="Description"
-                render={this.DescriptionRenderer}
-              />
-            </Fields>
-            <CreateForm
-              title="Task Creation"
-              message="Create a new task!"
-              trigger="Create Task"
-              onSubmit={(task) => this.service.create(task)}
-              submitText="Create"
-              validate={(values) => {
-                const errors = {};
-                if (!values.title) {
-                  errors.title = "Please, provide task's title";
-                }
-
-                if (!values.description) {
-                  errors.description = "Please, provide task's description";
-                }
-
-                return errors;
-              }}
-            />
-
-            <UpdateForm
-              title="Task Update Process"
-              message="Update task"
-              trigger="Update"
-              onSubmit={(task) => this.service.update(task)}
-              submitText="Update"
-              validate={(values) => {
-                const errors = {};
-
-                if (!values.id) {
-                  errors.id = "Please, provide id";
-                }
-
-                if (!values.title) {
-                  errors.title = "Please, provide task's title";
-                }
-
-                if (!values.description) {
-                  errors.description = "Please, provide task's description";
-                }
-
-                return errors;
-              }}
-            />
-
-            <DeleteForm
-              title="Task Delete Process"
-              message="Are you sure you want to delete the task?"
-              trigger="Delete"
-              onSubmit={(task) => this.service.delete(task)}
-              submitText="Delete"
-              validate={(values) => {
-                const errors = {};
-                if (!values.id) {
-                  errors.id = "Please, provide id";
-                }
-                return errors;
-              }}
-            />
-          </CRUDTable>
-        </div>
+            <div className="rounded-t mb-0 px-4 py-3 border-0">
+              <div className="flex flex-wrap items-center">
+                <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+                  <h3
+                    className={
+                      "font-semibold text-lg " +
+                      (this.color === "light"
+                        ? "text-blueGray-700"
+                        : "text-white")
+                    }
+                  >
+                    Compositions
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div className="block w-full overflow-x-auto">
+              {/* Projects table */}
+              <table className="items-center w-full bg-transparent border-collapse">
+                <thead>
+                  <tr>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Name
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Archetyped ID 
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Archetyped Template
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Category
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Start Time
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Version
+                    </th>
+                    <th
+                      className={
+                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                        (this.color === "light"
+                          ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                          : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                      }
+                    >
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.tasks.map((headCell) => (
+                    <tr>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {headCell.name.value}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {headCell.archetype_details.archetype_id}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {headCell.archetype_details.template_id}
+                      </td>
+                      <td
+                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                        {headCell.category.value}
+                    </td>
+                    <td
+                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                        {headCell.context.startTime.value}
+                    </td>
+                    <td
+                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                        {this.id.idV}
+                    </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                        <TableDropdown/>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
       );
     }
   }
 }
-export default ListComposition;
+
+export default ListVersioned;

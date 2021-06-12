@@ -62,7 +62,7 @@ export default function Landing() {
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
                   <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
-                    <i className="fas fa-retweet"></i>
+                    <i className="fa fa-search"></i>
                   </div>
                   <h6 className="text-xl font-semibold">Search EHR</h6>
                   <Search></Search>
@@ -76,7 +76,7 @@ export default function Landing() {
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
                 <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
-                  <i className="fas fa-user-friends text-xl"></i>
+                  <i className="fa fa-user-friends text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
                   Context
@@ -86,7 +86,7 @@ export default function Landing() {
                 </p>
                 <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
                   The kit comes with three pre-built pages to help you get
-                  started faster. You can change the text and images and you're
+                  started fater. You can change the text and images and you're
                   good to go. Just make sure you enable them first via
                   JavaScript.
                 </p>
