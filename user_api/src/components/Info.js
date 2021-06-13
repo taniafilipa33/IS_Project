@@ -4,6 +4,9 @@ class Info extends Component {
   constructor(props) {
     console.log("oi");
     super(props);
+    this.evento = 0;
+    this.item = 0;
+    this.value = 0;
     this.color = "light";
     this.state = { tasks: [], isLoading: true };
     this.id = props.match.params;
@@ -30,11 +33,38 @@ class Info extends Component {
   }
 
   handleClick = (e) => {
-    console.log(e.target.id)
-    console.log("target==",e)
-    this.setState({tasks: e.target.value})
-    console.log("target==",e.target.value)
-  }
+    var saver = e.target.attributes.getNamedItem("keep").value.split("_");
+    var even = saver[0];
+    var ite = saver[1];
+    var val = saver[2];
+    console.log("eve:" + even + "  ite:: " + ite + "  VAL:  " + val);
+    var toChange = this.state.tasks;
+    var key = Object.entries(
+      toChange.content[even].data.events[0].data.items[ite].value
+    )[val];
+    toChange.content[even].data.events[0].data.items[ite].value[key[0]] =
+      e.target.value;
+
+    this.setState({ tasks: toChange });
+  };
+
+  updateEvent = () => {
+    this.evento = this.evento + 1;
+    this.item = 0;
+  };
+
+  forStarters = () => {
+    this.evento = 0;
+  };
+
+  updateItem = () => {
+    this.item = this.item + 1;
+    this.value = 0;
+  };
+
+  updateValue = () => {
+    this.value = this.value + 1;
+  };
 
   componentDidMount() {
     this.callAPI();
@@ -81,6 +111,7 @@ class Info extends Component {
                         </div>
 
                         <form>
+                          {this.forStarters()}
                           {this.state.tasks.content.map((headCell) => (
                             <div>
                               <br></br>
@@ -109,21 +140,30 @@ class Info extends Component {
                                             type="text"
                                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             value={valor[1]}
-                                            onChange= {this.handleClick}
+                                            keep={
+                                              this.evento +
+                                              "_" +
+                                              this.item +
+                                              "_" +
+                                              this.value
+                                            }
+                                            onChange={this.handleClick}
                                           />
                                         </div>
+                                        {this.updateValue()}
                                       </div>
                                     ))}
+                                    {this.updateItem()}
                                   </div>
                                 )
                               )}
+                              {this.updateEvent()}
                             </div>
                           ))}
                           <div className="text-center mt-6">
                             <button
                               className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                               type="button"
-                             
                             >
                               Save
                             </button>
