@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import "./style/App.css";
 
-import Composition from "./views/Compositions";
+import Compositions from "./views/Compositions";
 import Versioned from "./views/Versioned";
 import Landing from "./views/Landing.js";
-
+import Composition from "./views/Composition";
 
 function App() {
   return (
@@ -17,10 +17,17 @@ function App() {
       <Switch>
         {
           <Route
-            path="/ehr/:id/versioned/:idV/composition"
+            path="/ehr/:id/versioned/:idV/composition/:ve"
             render={(props) => <Composition {...props} />}
           ></Route>
         }
+        {
+          <Route
+            path="/ehr/:id/versioned/:idV/composition"
+            render={(props) => <Compositions {...props} />}
+          ></Route>
+        }
+
         {
           <Route
             path="/ehr/:id/versioned"

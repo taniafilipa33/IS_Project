@@ -35,22 +35,10 @@ export default function Navbar(props) {
             <ul className="flex flex-col lg:flex-row list-none mr-auto"></ul>
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="flex items-center">
-                <a
-                  className="lg:text-blue lg:hover:text-blue-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="#"
-                >
-                  <i className="lg:text-blue-200 text-blue-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
-                  Compositions
-                </a>
+                <i className="lg:text-blue-200 text-blue-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
               </li>
               <li className="flex items-center">
-                <a
-                  className="lg:text-blue lg:hover:text-blue-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="#"
-                >
-                  <i className="lg:text-blue-200 text-blue-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
-                  Verisoned Composition
-                </a>
+                <i className="lg:text-blue-200 text-blue-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
               </li>
             </ul>
           </div>

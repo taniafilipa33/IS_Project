@@ -1,96 +1,136 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Info = () => {
-  console.log("fui chamado");
-  return (
-    <>
-      <section className="relative py-16 bg-blueGray-200">
-        <div className="container mx-auto px-4">
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
-            <div className="px-6">
-              <div className="flex flex-wrap justify-center">
-                <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                  <div className="relative">
-                    <img
-                      alt="..."
-                      src={require("../assets/img/records.png").default}
-                      className="rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-                    />
-                  </div>
-                  <hr></hr>
-                  <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          22
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Friends
-                        </span>
+class Info extends Component {
+  constructor(props) {
+    console.log("oi");
+    super(props);
+    this.color = "light";
+    this.state = { tasks: [], isLoading: true };
+    this.id = props.match.params;
+    this.idEhr = "";
+  }
+  callAPI() {
+    console.log(this.id.idV);
+    fetch(
+      "http://localhost:7300/ehr/" +
+        this.id.id +
+        "/versioned/" +
+        this.id.idV +
+        "/composition"
+    )
+      .then((res) => res.text())
+      .then((res) => {
+        var resp = [];
+        JSON.parse(res).map((ele) => {
+          if (ele.uid.value.split("::")[2] == this.id.ve) resp.push(ele);
+        });
+        this.setState({ tasks: resp[0] });
+        this.setState({ isLoading: false });
+      });
+  }
+
+  componentDidMount() {
+    this.callAPI();
+  }
+
+  render() {
+    if (this.state.isLoading === true) {
+      return (
+        <div>
+          <h1>loading...</h1>
+        </div>
+      );
+    }
+    if (this.state.isLoading === false) {
+      console.log(this.state.tasks.content);
+      return (
+        <>
+          <div
+            className={
+              "relative flex flex-col min-w-0 break-words w-full mb-6 rounded " +
+              (this.color === "light"
+                ? "bg-white"
+                : "bg-lightBlue-900 text-white")
+            }
+          >
+            <section className="relative py-16 ">
+              <div className="container mx-auto px-4 h-full">
+                <div className="flex content-center items-center justify-center h-full">
+                  <div className="w-full lg:w-6/12 px-4">
+                    <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+                      <div className="rounded-t mb-0 px-6 py-6">
+                        <div className="text-center mb-3">
+                          <br></br>
+                          <h3 className="text-blueGray-800 text-xl font-bold">
+                            Version
+                          </h3>
+                        </div>
+                        <hr></hr>
+                        <hr className="mt-6 border-b-1 border-blueGray-300" />
                       </div>
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          10
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Photos
-                        </span>
-                      </div>
-                      <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          89
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Comments
-                        </span>
+                      <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+                        <div className="text-blueGray-600 text-center mb-3 font-bold">
+                          <h4>Events</h4>
+                        </div>
+
+                        <form>
+                          {this.state.tasks.content.map((headCell) => (
+                            <div>
+                              <br></br>
+                              <hr className="mt-6 border-b-1 border-blueGray-300" />
+                              <br></br>
+                              <div className="text-blueGray-500 text-center mb-3 font-bold">
+                                <h5>{headCell.name.value}</h5>
+                              </div>
+                              {headCell.data.events[0].data.items.map(
+                                (head) => (
+                                  <div>
+                                    <br></br>
+                                    <div className="text-blueGray-700 text-center text-sm mb-3 font-bold">
+                                      <h6>{head.name.value}</h6>
+                                    </div>
+                                    {Object.entries(head.value).map((valor) => (
+                                      <div>
+                                        <div className="relative w-full mb-3">
+                                          <label
+                                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            htmlFor="grid-password"
+                                          >
+                                            {valor[0]}
+                                          </label>
+                                          <input
+                                            type="text"
+                                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                            placeholder={valor[1]}
+                                          />
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          ))}
+                          <div className="text-center mt-6">
+                            <button
+                              className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                              type="button"
+                            >
+                              Save
+                            </button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="text-center mt-12">
-                <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                  Jenna Stones
-                </h3>
-                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                  Los Angeles, California
-                </div>
-                <div className="mb-2 text-blueGray-600 mt-10">
-                  <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                  Solution Manager - Creative Tim Officer
-                </div>
-                <div className="mb-2 text-blueGray-600">
-                  <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                  University of Computer Science
-                </div>
-              </div>
-              <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
-                <div className="flex flex-wrap justify-center">
-                  <div className="w-full lg:w-9/12 px-4">
-                    <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                      An artist of considerable range, Jenna the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                      performs and records all of his own music, giving it a
-                      warm, intimate feel with a solid groove structure. An
-                      artist of considerable range.
-                    </p>
-                    <a
-                      href="#pablo"
-                      className="font-normal text-lightBlue-500"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      Show more
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </section>
           </div>
-        </div>
-      </section>
-    </>
-  );
-};
+        </>
+      );
+    }
+  }
+}
 
 export default Info;

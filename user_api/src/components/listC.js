@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // Component's Base CSS
 import "../index.css";
-import TableDropdown from "./TableDropdown";
+import TableDrop from "./TableDrop";
 
 class ListVersioned extends Component {
   constructor(props) {
@@ -48,7 +48,13 @@ class ListVersioned extends Component {
 
   callAPI() {
     console.log(this.id.idV);
-    fetch("http://localhost:7300/ehr/"+ this.id.id+"/versioned/" + this.id.idV + "/composition" )
+    fetch(
+      "http://localhost:7300/ehr/" +
+        this.id.id +
+        "/versioned/" +
+        this.id.idV +
+        "/composition"
+    )
       .then((res) => res.text())
       .then((res) => {
         var resp = [];
@@ -62,11 +68,12 @@ class ListVersioned extends Component {
         this.state.tasks.forEach((e) => {
           console.log(e);
           var h = {};
+          h.id = e.uid.value.split("::")[2];
           h.name = e.name.value;
-          h.archetyped_id = e.archetype_details.archetype_id
-          h.template_id = e.archetype_details.template_id
-          h.category = e.category.value
-          h.start_time = e.context.startTime.value
+          h.archetyped_id = e.archetype_details.archetype_id;
+          h.template_id = e.archetype_details.template_id;
+          h.category = e.category.value;
+          h.start_time = e.context.startTime.value;
           this.valores.push(h);
         });
         this.service = {
@@ -164,7 +171,7 @@ class ListVersioned extends Component {
                           : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                       }
                     >
-                      Archetyped ID 
+                      Archetyped ID
                     </th>
                     <th
                       className={
@@ -221,29 +228,26 @@ class ListVersioned extends Component {
                 <tbody>
                   {this.state.tasks.map((headCell) => (
                     <tr>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         {headCell.name.value}
                       </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         {headCell.archetype_details.archetype_id}
                       </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         {headCell.archetype_details.template_id}
                       </td>
-                      <td
-                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                      <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
                         {headCell.category.value}
-                    </td>
-                    <td
-                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                      </td>
+                      <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
                         {headCell.context.startTime.value}
-                    </td>
-                    <td
-                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
-                        {this.id.idV}
-                    </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                        <TableDropdown/>
+                      </td>
+                      <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                        {headCell.uid.value.split("::")[2]}
+                      </td>
+                      <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                        <TableDrop ve={headCell.uid.value.split("::")[2]} />
                       </td>
                     </tr>
                   ))}

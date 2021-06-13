@@ -4,7 +4,7 @@
       "value": "Vital Signs"
     },
     "uid": {
-      "value": "0060656d-87a9-448f-a110-6d179022dbff::MyMedEHR::4"
+      "value": "0060656d-87a9-448f-a110-6d179022dbff::MyMedEHR::1"
     },
     "link": [],
     "archetype_details": {
@@ -38,7 +38,7 @@
         },
         "value": "other care"
       },
-      "start_time": {
+      "startTime": {
         "value": "2005-12-20T17:49:46.000+01:00"
       }
     },
@@ -541,6 +541,1176 @@
                       "denominator": 100,
                       "numerator": 96.2,
                       "type": 0
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Tree"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "Event Series"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Indirect oximetry"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "value": "Vital Signs"
+    },
+    "uid": {
+      "value": "0060656d-87a9-448f-a110-6d179022dbff::MyMedEHR::2"
+    },
+    "link": [],
+    "archetype_details": {
+      "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v2",
+
+      "rm_version": "1.0.1",
+      "template_id": "Vital Signs"
+    },
+    "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v2",
+    "language": {
+      "code_string": "en",
+      "terminology_id": "ISO_639-1"
+    },
+    "territory": {
+      "code_string": "SI",
+      "terminology_id": "ISO_3166-1"
+    },
+    "category": {
+      "defining_code": {
+        "code_string": "433",
+        "terminology_id": "openehr"
+      },
+      "value": "event"
+    },
+    "composer": "ehrscape",
+    "context": {
+      "setting": {
+        "defining_code": {
+          "code_string": "238",
+          "terminology_id": "openehr"
+        },
+        "value": "other care"
+      },
+      "startTime": {
+        "value": "2005-12-20T17:49:46.000+01:00"
+      }
+    },
+    "content": [
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.body_temperature.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.body_temperature.v1",
+
+        "data": {
+          "archetype_node_id": "at0002",
+
+          "events": [
+            {
+              "archetype_node_id": "at0003",
+
+              "data": {
+                "archetype_node_id": "at0001",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Temperature"
+                    },
+                    "value": {
+                      "magnitude": 39.7,
+                      "precision": 1,
+                      "units": "°C"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Single"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "state": {
+                "archetype_node_id": "at0029",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0030",
+
+                    "name": {
+                      "value": "Body exposure"
+                    },
+                    "value": {
+                      "defining_code": {
+                        "code_string": "at0031",
+                        "terminology_id": {
+                          "value": "local"
+                        }
+                      },
+                      "value": "Naked"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "State"
+                }
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "History"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Body temperature"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.blood_pressure.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0006",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Systolic"
+                    },
+                    "value": {
+                      "magnitude": 105,
+                      "precision": 0,
+                      "units": "mm[Hg]"
+                    }
+                  },
+                  {
+                    "archetype_node_id": "at0005",
+
+                    "name": {
+                      "value": "Diastolic"
+                    },
+                    "value": {
+                      "magnitude": 84,
+                      "precision": 0,
+                      "units": "mm[Hg]"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "blood pressure"
+                }
+              },
+              "name": {
+                "value": "any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Blood Pressure"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.height.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.height.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0002",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Body Height/Length"
+                    },
+                    "value": {
+                      "magnitude": 84.60156104434435,
+                      "units": "cm"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Simple"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Height/Length"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.body_weight.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.body_weight.v1",
+
+        "data": {
+          "archetype_node_id": "at0002",
+
+          "events": [
+            {
+              "archetype_node_id": "at0003",
+
+              "data": {
+                "archetype_node_id": "at0001",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Body weight"
+                    },
+                    "value": {
+                      "magnitude": 10.9,
+                      "units": "kg"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Simple"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Body weight"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.heart_rate-pulse.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.heart_rate-pulse.v1",
+
+        "data": {
+          "archetype_node_id": "at0002",
+
+          "events": [
+            {
+              "archetype_node_id": "at0003",
+
+              "data": {
+                "archetype_node_id": "at0001",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Rate"
+                    },
+                    "value": {
+                      "magnitude": 85,
+                      "precision": 0,
+                      "units": "/min"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "structure"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Pulse"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.respiration.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.respiration.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0002",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Rate"
+                    },
+                    "value": {
+                      "magnitude": 15,
+                      "precision": 0,
+                      "units": "/min"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "List"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Respirations"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.indirect_oximetry.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.indirect_oximetry.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0002",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0006",
+
+                    "name": {
+                      "value": "spO2"
+                    },
+                    "value": {
+                      "denominator": 100,
+                      "numerator": 96.2,
+                      "type": 0
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Tree"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "Event Series"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Indirect oximetry"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "value": "Vital Signs 2"
+    },
+    "uid": {
+      "value": "0060656d-87a9-448f-a110-6d179022dbff::MyMedEHR::3"
+    },
+    "link": [],
+    "archetype_details": {
+      "archetype_id": "openEHR-EHR-COMPOSITION.encounter.v3",
+
+      "rm_version": "1.0.1",
+      "template_id": "Vital Signs"
+    },
+    "archetype_node_id": "openEHR-EHR-COMPOSITION.encounter.v3",
+    "language": {
+      "code_string": "en",
+      "terminology_id": "ISO_639-1"
+    },
+    "territory": {
+      "code_string": "SI",
+      "terminology_id": "ISO_3166-1"
+    },
+    "category": {
+      "defining_code": {
+        "code_string": "433",
+        "terminology_id": "openehr"
+      },
+      "value": "event"
+    },
+    "composer": "ehrscape",
+    "context": {
+      "setting": {
+        "defining_code": {
+          "code_string": "238",
+          "terminology_id": "openehr"
+        },
+        "value": "other care"
+      },
+      "startTime": {
+        "value": "2005-12-20T17:49:46.000+01:00"
+      }
+    },
+    "content": [
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.body_temperature.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.body_temperature.v1",
+
+        "data": {
+          "archetype_node_id": "at0002",
+
+          "events": [
+            {
+              "archetype_node_id": "at0003",
+
+              "data": {
+                "archetype_node_id": "at0001",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Temperature"
+                    },
+                    "value": {
+                      "magnitude": 38.7,
+                      "precision": 1,
+                      "units": "°C"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Single"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "state": {
+                "archetype_node_id": "at0029",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0030",
+
+                    "name": {
+                      "value": "Body exposure"
+                    },
+                    "value": {
+                      "defining_code": {
+                        "code_string": "at0031",
+                        "terminology_id": {
+                          "value": "local"
+                        }
+                      },
+                      "value": "Naked"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "State"
+                }
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "History"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Body temperature"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.blood_pressure.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.blood_pressure.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0006",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Systolic"
+                    },
+                    "value": {
+                      "magnitude": 105,
+                      "precision": 0,
+                      "units": "mm[Hg]"
+                    }
+                  },
+                  {
+                    "archetype_node_id": "at0005",
+
+                    "name": {
+                      "value": "Diastolic"
+                    },
+                    "value": {
+                      "magnitude": 84,
+                      "precision": 0,
+                      "units": "mm[Hg]"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "blood pressure"
+                }
+              },
+              "name": {
+                "value": "any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Blood Pressure"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.height.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.height.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0002",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Body Height/Length"
+                    },
+                    "value": {
+                      "magnitude": 84.60156104434435,
+                      "units": "cm"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Simple"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Height/Length"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.body_weight.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.body_weight.v1",
+
+        "data": {
+          "archetype_node_id": "at0002",
+
+          "events": [
+            {
+              "archetype_node_id": "at0003",
+
+              "data": {
+                "archetype_node_id": "at0001",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Body weight"
+                    },
+                    "value": {
+                      "magnitude": 13.9,
+                      "units": "kg"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "Simple"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Body weight"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.heart_rate-pulse.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.heart_rate-pulse.v1",
+
+        "data": {
+          "archetype_node_id": "at0002",
+
+          "events": [
+            {
+              "archetype_node_id": "at0003",
+
+              "data": {
+                "archetype_node_id": "at0001",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Rate"
+                    },
+                    "value": {
+                      "magnitude": 90,
+                      "precision": 0,
+                      "units": "/min"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "structure"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Pulse"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.respiration.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.respiration.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0002",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0004",
+
+                    "name": {
+                      "value": "Rate"
+                    },
+                    "value": {
+                      "magnitude": 18,
+                      "precision": 2,
+                      "units": "/min"
+                    }
+                  }
+                ],
+                "name": {
+                  "value": "List"
+                }
+              },
+              "name": {
+                "value": "Any event"
+              },
+              "time": {
+                "value": "2005-12-20T17:49:46.000+01:00"
+              }
+            }
+          ],
+          "name": {
+            "value": "history"
+          },
+          "origin": {
+            "value": "2005-12-20T17:49:46.000+01:00"
+          }
+        },
+        "encoding": {
+          "code_string": "UTF-8",
+          "terminology_id": {
+            "value": "IANA_character-sets"
+          }
+        },
+        "language": {
+          "code_string": "en",
+          "terminology_id": {
+            "value": "ISO_639-1"
+          }
+        },
+        "name": {
+          "value": "Respirations"
+        },
+        "subject": {
+          "class": "PARTY_SELF"
+        }
+      },
+      {
+        "archetype_details": {
+          "archetype_id": {
+            "value": "openEHR-EHR-OBSERVATION.indirect_oximetry.v1"
+          },
+
+          "rm_version": "1.0.1"
+        },
+        "archetype_node_id": "openEHR-EHR-OBSERVATION.indirect_oximetry.v1",
+
+        "data": {
+          "archetype_node_id": "at0001",
+
+          "events": [
+            {
+              "archetype_node_id": "at0002",
+
+              "data": {
+                "archetype_node_id": "at0003",
+
+                "items": [
+                  {
+                    "archetype_node_id": "at0006",
+
+                    "name": {
+                      "value": "spO2"
+                    },
+                    "value": {
+                      "denominator": 123,
+                      "numerator": 100.2,
+                      "type": 2
                     }
                   }
                 ],
