@@ -1,4 +1,11 @@
 import React, { Component } from "react";
+import axios from "axios";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+} from "react-router-dom";
 
 class Info extends Component {
   constructor(props) {
@@ -8,7 +15,7 @@ class Info extends Component {
     this.item = 0;
     this.value = 0;
     this.color = "light";
-    this.state = { tasks: [], isLoading: true };
+    this.state = { tasks: [], isLoading: true, submit: false };
     this.id = props.match.params;
     this.idEhr = "";
   }
@@ -16,10 +23,10 @@ class Info extends Component {
     console.log(this.id.idV);
     fetch(
       "http://localhost:7300/ehr/" +
-        this.id.id +
-        "/versioned/" +
-        this.id.idV +
-        "/composition"
+      this.id.id +
+      "/versioned/" +
+      this.id.idV +
+      "/composition"
     )
       .then((res) => res.text())
       .then((res) => {
@@ -30,6 +37,15 @@ class Info extends Component {
         this.setState({ tasks: resp[0] });
         this.setState({ isLoading: false });
       });
+  }
+
+
+  handleSubmit = async () => {
+    await axios.post("http://localhost:7300/ehr/" +
+      this.id.id +
+      "/versioned/" +
+      this.id.idV +
+      "/composition/update", this.state.tasks).then((e) => { console.log("olaaaaa"); this.setState({ submit: true }) }).catch((e) => console.log(e))
   }
 
   handleClick = (e) => {
@@ -78,8 +94,19 @@ class Info extends Component {
         </div>
       );
     }
+    if (this.state.submit === true) {
+      console.log("Enttreii")
+      return (
+        <Router>
+          <switch>
+            <Redirect to="/ehr" />
+          </switch>
+        </Router>
+      )
+    }
     if (this.state.isLoading === false) {
       console.log(this.state.tasks.content);
+      console.log(this.state.submit)
       return (
         <>
           <div
@@ -110,7 +137,7 @@ class Info extends Component {
                           <h4>Events</h4>
                         </div>
 
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                           {this.forStarters()}
                           {this.state.tasks.content.map((headCell) => (
                             <div>
@@ -163,7 +190,7 @@ class Info extends Component {
                           <div className="text-center mt-6">
                             <button
                               className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                              type="button"
+                              type="submit"
                             >
                               Save
                             </button>

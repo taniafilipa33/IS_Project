@@ -67,4 +67,17 @@ router.get("/ehr/:idEHR/versioned/:versioned_object_uid/composition", function (
     .catch((e) => console.log(e));
 });
 
+router.post("/ehr/:idEHR/versioned/:versioned_object_uid/composition/update", function (
+  req,
+  res,
+  next
+) {
+  Composition.updateComposition(req.body)
+    .then((dados) => {
+      res.jsonp(dados);
+    })
+    .catch((e) => console.log(e));
+});
+
+
 module.exports = router;

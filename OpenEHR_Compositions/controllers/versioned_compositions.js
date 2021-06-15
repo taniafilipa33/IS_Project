@@ -33,3 +33,9 @@ module.exports.lookUpID = function (u, idEhr) {
     {}
   ).exec();
 };
+
+module.exports.deleteVC = function(id){
+  return Versioned.remove(
+    { "uid.value": u }
+  ).exec();
+}

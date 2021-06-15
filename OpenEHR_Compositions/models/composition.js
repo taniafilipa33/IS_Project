@@ -11,9 +11,19 @@ var ACTION = require("./action").schema;
 var INSTRUCTION = require("./instructions").schema;
 var CITATION = require("./citation").schema;
 var SECTION = require("./section").schema;
+var DV_TEXT = require("./dv_text").schema;
+var UID_BASED_ID = require("./uid_based_id").schema;
+var LINK = require("./link").schema;
+var ARCHETYPED = require("./archetyped").schema;
+var  FEEDER_AUDIT= require("./feeder_audit").schema;
 
 var Composition = new mongoose.Schema({
-  locatable: LOCATABLE,
+  name: DV_TEXT,
+  uid: UID_BASED_ID,
+  links: [LINK],
+  archetype_details: ARCHETYPED,
+  feeder_audit: FEEDER_AUDIT,
+  archetype_node_id: String,
   language: CODE_PHRASE,
   territory: CODE_PHRASE,
   category: DV_CODED_TEXT,
