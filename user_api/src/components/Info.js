@@ -45,7 +45,7 @@ class Info extends Component {
       this.id.id +
       "/versioned/" +
       this.id.idV +
-      "/composition/update", this.state.tasks).then((e) => { console.log("olaaaaa"); this.setState({ submit: true }) }).catch((e) => console.log(e))
+      "/composition/update", this.state.tasks).then((e) => {this.setState({ submit: true }) }).catch((e) => console.log(e))
   }
 
   handleClick = (e) => {

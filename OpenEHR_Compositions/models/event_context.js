@@ -3,10 +3,11 @@ var DV_CODED_TEXT = require("./dv_coded_text").schema;
 const ITEM_STRUCTURE = require("./locatable").schema;
 var PARTY_IDENTIFIED = require("./party_identified").schema;
 var PARTICIPATION = require("./participation").schema;
+var DV_TEXT = require("./dv_text").schema;
 
 var EVENT_CONTEXT = new mongoose.Schema({
-  start_time: Date,
-  end_time: Date,
+  startTime: DV_TEXT,
+  endTime: Date,
   location: String,
   setting: DV_CODED_TEXT,
   other_context: ITEM_STRUCTURE,

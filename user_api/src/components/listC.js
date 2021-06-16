@@ -64,46 +64,6 @@ class ListVersioned extends Component {
         });
         this.setState({ tasks: resp });
         this.count = this.state.tasks.length;
-        this.valores = [];
-        this.state.tasks.forEach((e) => {
-          console.log(e);
-          var h = {};
-          h.id = e.uid.value.split("::")[2];
-          h.name = e.name.value;
-          h.archetyped_id = e.archetype_details.archetype_id;
-          h.template_id = e.archetype_details.template_id;
-          h.category = e.category.value;
-          h.start_time = e.context.startTime.value;
-          this.valores.push(h);
-        });
-        this.service = {
-          fetchItems: (payload) => {
-            let result = new Array(this.valores);
-
-            result = result[0].sort(this.getSorter(payload.sort));
-            console.log(result);
-            return Promise.resolve(result);
-          },
-          create: (task) => {
-            this.count += 1;
-            this.state.tasks.push({
-              ...task,
-              id: this.count,
-            });
-            return Promise.resolve(task);
-          },
-          update: (data) => {
-            const task = this.state.tasks.find((t) => t.id === data.id);
-            task.title = data.title;
-            task.description = data.description;
-            return Promise.resolve(task);
-          },
-          delete: (data) => {
-            const task = this.state.tasks.find((t) => t.id === data.id);
-            this.state.tasks = this.state.tasks.filter((t) => t.id !== task.id);
-            return Promise.resolve(task);
-          },
-        };
         this.setState({ isLoading: false });
       });
   }
