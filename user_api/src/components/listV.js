@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 // Component's Base CSS
 import "../index.css";
 import TableDropdown from "./TableDropdown";
+import Button from '@material-ui/core/Button';
+import { Redirect } from "react-router-dom";
 
 class ListVersioned extends Component {
   constructor(props) {
@@ -59,16 +61,6 @@ class ListVersioned extends Component {
         this.setState({ tasks: resp });
         this.count = this.state.tasks.length;
         this.valores = [];
-        this.state.tasks.forEach((e) => {
-          console.log(e);
-          var h = {};
-          h.id = e.uid.value;
-          h.type = e._type;
-          h.Otype = e.owner_id.type;
-          h.namespace = e.owner_id.namespace;
-          h.time_created = e.timeCreated.value;
-          this.valores.push(h);
-        });
         this.service = {
           fetchItems: (payload) => {
             let result = new Array(this.valores);
@@ -105,6 +97,12 @@ class ListVersioned extends Component {
     this.callAPI();
   }
 
+  newComposition = () =>{
+    return(
+      <Redirect to = "/ehr"/>
+    )
+  }
+
   render() {
     if (this.state.isLoading === true) {
       return (
@@ -113,7 +111,8 @@ class ListVersioned extends Component {
         </div>
       );
     }
-    if (this.state.isLoading === false) {
+   
+    else if (this.state.isLoading === false) {
       console.log(this.state.tasks);
       return (
         <>
@@ -208,7 +207,7 @@ class ListVersioned extends Component {
                         {headCell._type}
                       </td>
                       <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        {headCell.timeCreated.value}
+                        {headCell.timeCreated}
                       </td>
                       <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
                         {headCell.owner_id.namespace}
@@ -220,8 +219,12 @@ class ListVersioned extends Component {
                   ))}
                 </tbody>
               </table>
+              <br></br>
             </div>
           </div>
+          <Button variant="contained"  style={{ color: "white", background: "#3cafb2", width : "30%"}} href={"/ehr/" + this.id.id +"/verioned/add"}>
+              Create Version Composition
+              </Button>
         </>
       );
     }

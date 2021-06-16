@@ -10,11 +10,18 @@ import Compositions from "./views/Compositions";
 import Versioned from "./views/Versioned";
 import Landing from "./views/Landing.js";
 import Composition from "./views/Composition";
+import AddVersion from "./views/AddVersion";
 
 function App() {
   return (
     <Router>
       <Switch>
+      {
+          <Route
+            path="/ehr/:id/verioned/add"
+            render={(props) => <AddVersion {...props} />}
+          ></Route>
+        }
         {
           <Route
             path="/ehr/:id/versioned/:idV/composition/:ve"

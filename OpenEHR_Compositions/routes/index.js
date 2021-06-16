@@ -79,5 +79,17 @@ router.post("/ehr/:idEHR/versioned/:versioned_object_uid/composition/update", fu
     .catch((e) => console.log(e));
 });
 
+router.post("/ehr/:idEHR/verioned/add", function(
+  req,
+  res,
+  next
+){
+  Versioned.addVC(req.body)
+  .then((dados) => {
+    res.jsonp(dados);
+  })
+  .catch((e) => console.log(e));
+})
+
 
 module.exports = router;

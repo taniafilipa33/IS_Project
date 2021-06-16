@@ -12,9 +12,7 @@
       "namespace": "local",
       "type": "EHR"
     },
-    "timeCreated": {
-      "value": "2015-01-20T19:30:22.765+01:00"
-    }
+    "timeCreated": "2015-01-20T19:30:22.765+01:00"
   },
   {
     "_type": "VERSIONED_COMPOSITION",
@@ -29,8 +27,6 @@
       "namespace": "local",
       "type": "EHR"
     },
-    "timeCreated": {
-      "value": "2015-01-20T19:30:22.765+01:00"
-    }
+    "timeCreated": "2015-01-20T19:30:22.765+01:00"
   }
 ]

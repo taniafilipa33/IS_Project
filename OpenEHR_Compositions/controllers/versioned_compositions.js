@@ -39,3 +39,13 @@ module.exports.deleteVC = function(id){
     { "uid.value": u }
   ).exec();
 }
+
+module.exports.addVC = function(myobj){
+  console.log(myobj)
+  let today = new Date()
+  myobj.uid.value = "olaa"
+  myobj.timeCreated = "" + today
+  var v = new Versioned(myobj)
+  console.log(myobj)
+  return v.save();
+}
