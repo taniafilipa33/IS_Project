@@ -6,6 +6,8 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
+import history from "../history";
+import {withRouter} from 'react-router-dom'
 
 class Info extends Component {
   constructor(props) {
@@ -40,12 +42,14 @@ class Info extends Component {
   }
 
 
-  handleSubmit = async () => {
+  handleSubmit = async (e) => {
+    e.preventDefault()
     await axios.post("http://localhost:7300/ehr/" +
       this.id.id +
       "/versioned/" +
       this.id.idV +
       "/composition/update", this.state.tasks).then((e) => {this.setState({ submit: true }) }).catch((e) => console.log(e))
+     // history.push("/ehr")
   }
 
   handleClick = (e) => {
@@ -94,17 +98,13 @@ class Info extends Component {
         </div>
       );
     }
-    if (this.state.submit === true) {
+    else if (this.state.submit === true) {
       console.log("Enttreii")
       return (
-        <Router>
-          <switch>
-            <Redirect to="/ehr" />
-          </switch>
-        </Router>
+            <Redirect to={"/ehr/"+ this.id.id+"/versioned/"+ this.id.idV +"/composition"} />
       )
     }
-    if (this.state.isLoading === false) {
+    else if (this.state.isLoading === false) {
       console.log(this.state.tasks.content);
       console.log(this.state.submit)
       return (
@@ -196,6 +196,7 @@ class Info extends Component {
                             </button>
                           </div>
                         </form>
+
                       </div>
                     </div>
                   </div>
@@ -209,4 +210,4 @@ class Info extends Component {
   }
 }
 
-export default Info;
+export default withRouter(Info);

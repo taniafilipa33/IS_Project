@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import history from '../history';
+import { Redirect } from "react-router";
 
 class AddVersion extends Component {
     constructor(props) {
@@ -29,9 +31,10 @@ class AddVersion extends Component {
         this.validateOnChange = false
     }
 
-    handleSubmit = async () => {
+    handleSubmit = async (e) => {
+        e.preventDefault()
         console.log(this.id.id)
-        await axios.post("http://localhost:7300/ehr/"+this.id.id+"/verioned/add", this.state.tasks).then((e) => { this.setState({ submit: true }) }).catch((e) => console.log(e))
+        await axios.post("http://localhost:7300/ehr/"+this.id.id+"/verioned/add", this.state.tasks).then((e) => { this.setState({submit: true}) }).catch((e) => console.log(e))
     }
 
     handle=(e)=> {
@@ -66,6 +69,12 @@ class AddVersion extends Component {
     };
 
     render() {
+        if (this.state.submit === true) {
+            return (
+                  <Redirect to={"/ehr/"+ this.id.id+"/versioned"} />
+            )
+          }
+          else {
             return (
                 <>
                     <div
@@ -91,6 +100,7 @@ class AddVersion extends Component {
                                                 <hr></hr>
                                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                                             </div>
+                                            <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                                             <form onSubmit={this.handleSubmit}>
                                                 
                                                 <div>
@@ -169,6 +179,7 @@ class AddVersion extends Component {
                                                     </button>
                                                 </div>
                                             </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +189,7 @@ class AddVersion extends Component {
                 </>
             );
         }
-    
+    }
 }
 
 export default AddVersion;

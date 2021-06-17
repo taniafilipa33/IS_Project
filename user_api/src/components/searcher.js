@@ -27,8 +27,7 @@ class Search extends Component {
         var resp = [];
         //console.log(JSON.parse(res));
         JSON.parse(res).map((ele) => {
-          //console.log(ele);
-          resp.push(ele.owner_id.id.value);
+          resp.push(ele);
         });
         //console.log(resp);
         this.setState({ data: resp });

@@ -2,6 +2,7 @@
 
 var Versioned = require("../models/versioned_composition");
 
+
 // Retorna lista de Versioned
 module.exports.list = function (idEHR) {
   return Versioned.find(
@@ -23,7 +24,7 @@ module.exports.lookUp = function (u) {
 };
 
 module.exports.ehr = function () {
-  return Versioned.find().exec();
+  return Versioned.distinct("owner_id.id.value").exec();
 };
 
 // Retorna um Versioned por id
@@ -40,12 +41,18 @@ module.exports.deleteVC = function(id){
   ).exec();
 }
 
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 module.exports.addVC = function(myobj){
   console.log(myobj)
   let today = new Date()
-  myobj.uid.value = "olaa"
-  myobj.timeCreated = "" + today
+  myobj.uid.value = uuidv4().toString()
+  myobj.timeCreated = today.toString()
   var v = new Versioned(myobj)
-  console.log(myobj)
   return v.save();
 }

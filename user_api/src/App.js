@@ -5,6 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import "./style/App.css";
+import history from './history'
 
 import Compositions from "./views/Compositions";
 import Versioned from "./views/Versioned";
@@ -14,7 +15,8 @@ import AddVersion from "./views/AddVersion";
 
 function App() {
   return (
-    <Router>
+  <Router history = {history} forceRefresh={true}>
+    <Route>
       <Switch>
       {
           <Route
@@ -51,7 +53,8 @@ function App() {
         {/* add redirect for first page */}
         <Redirect from="/" to="/ehr" />
       </Switch>
-    </Router>
+    </Route>
+  </Router>
   );
 }
 
