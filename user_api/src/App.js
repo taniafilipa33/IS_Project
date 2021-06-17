@@ -12,6 +12,7 @@ import Versioned from "./views/Versioned";
 import Landing from "./views/Landing.js";
 import Composition from "./views/Composition";
 import AddVersion from "./views/AddVersion";
+import AddComposition from "./views/AddComposition";
 
 function App() {
   return (
@@ -20,8 +21,14 @@ function App() {
       <Switch>
       {
           <Route
-            path="/ehr/:id/verioned/add"
+            path="/ehr/:id/versioned/add"
             render={(props) => <AddVersion {...props} />}
+          ></Route>
+        }
+        {
+          <Route
+            path="/ehr/:id/versioned/:idV/composition/add"
+            render={(props) => <AddComposition {...props} />}
           ></Route>
         }
         {
@@ -30,13 +37,14 @@ function App() {
             render={(props) => <Composition {...props} />}
           ></Route>
         }
+        
         {
           <Route
             path="/ehr/:id/versioned/:idV/composition"
             render={(props) => <Compositions {...props} />}
           ></Route>
         }
-
+        
         {
           <Route
             path="/ehr/:id/versioned"

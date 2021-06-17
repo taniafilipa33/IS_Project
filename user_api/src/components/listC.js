@@ -215,7 +215,7 @@ class ListVersioned extends Component {
                 </tbody>
               </table>
               <br></br>
-              <Button variant="contained"  style={{ color: "white", background: "#3cafb2", width : "15%", right: "-2% !important;"}} href={"/ehr/" + this.id.id +"/verioned/add"}>
+              <Button variant="contained"  style={{ color: "white", background: "#3cafb2", width : "15%", right: "-2% !important;"}} href={"/ehr/" + this.id.id +"/versioned/" + this.id.idV + "/composition/add"}>
               Create Composition
               </Button>
               <br></br>
