@@ -213,7 +213,7 @@ class ListVersioned extends Component {
                         {headCell.owner_id.namespace}
                       </td>
                       <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        <TableDropdown id={headCell.uid.value} />
+                        <TableDropdown id={headCell.uid.value} idehr={this.id.id}/>
                       </td>
                     </tr>
                   ))}

@@ -1,7 +1,7 @@
 // Versioned controller
 
 var Versioned = require("../models/versioned_composition");
-
+var Composition = require("../models/composition");
 
 // Retorna lista de Versioned
 module.exports.list = function (idEHR) {
@@ -35,9 +35,13 @@ module.exports.lookUpID = function (u, idEhr) {
   ).exec();
 };
 
-module.exports.deleteVC = function(id){
+module.exports.deleteVC = async function(id){
+  const p = Composition.remove(
+    { "uid.value": {$regex: id} }
+  ).exec();
+  await Promise.resolve(p)
   return Versioned.remove(
-    { "uid.value": u }
+    { "uid.value": id }
   ).exec();
 }
 

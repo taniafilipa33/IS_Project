@@ -19,7 +19,6 @@ module.exports.lookUpID = function (u) {
 };
 
 
-
 module.exports.updateComposition = async function (myobj) {
   var t = myobj.uid.value.split('::')[0]
   console.log("t==", t)
@@ -33,4 +32,10 @@ module.exports.updateComposition = async function (myobj) {
     return c.save();
   });
   
+}
+
+module.exports.deleteC = async function(id){
+  return Composition.remove(
+    { "uid.value": id }
+  ).exec();
 }

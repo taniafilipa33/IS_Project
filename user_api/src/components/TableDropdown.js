@@ -1,6 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 import { Redirect } from "react-router";
+import axios from "axios";
 
 const NotificationDropdown = (props) => {
   // dropdown props
@@ -16,6 +17,12 @@ const NotificationDropdown = (props) => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  const handleDelete = async (e) =>{
+    e.preventDefault()
+    await axios.delete("http://localhost:7300/ehr/"+props.idehr+"/versioned/" + props.id).then((e) => { window.location.reload() }).catch((e) => console.log(e))
+  }
+
   return (
     <>
       <a
@@ -50,7 +57,7 @@ const NotificationDropdown = (props) => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => handleDelete(e)}
         >
           Delete
         </a>

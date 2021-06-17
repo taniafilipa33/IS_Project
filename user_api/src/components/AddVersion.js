@@ -34,7 +34,7 @@ class AddVersion extends Component {
     handleSubmit = async (e) => {
         e.preventDefault()
         console.log(this.id.id)
-        await axios.post("http://localhost:7300/ehr/"+this.id.id+"/verioned/add", this.state.tasks).then((e) => { this.setState({submit: true}) }).catch((e) => console.log(e))
+        await axios.post("http://localhost:7300/ehr/"+this.id.id+"/versioned/add", this.state.tasks).then((e) => { this.setState({submit: true}) }).catch((e) => console.log(e))
     }
 
     handle=(e)=> {

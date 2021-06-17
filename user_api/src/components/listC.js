@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Button from '@material-ui/core/Button';
 
 // Component's Base CSS
 import "../index.css";
@@ -207,14 +208,21 @@ class ListVersioned extends Component {
                         {headCell.uid.value.split("::")[2]}
                       </td>
                       <td className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        <TableDrop ve={headCell.uid.value.split("::")[2]} />
+                        <TableDrop ve={headCell.uid.value.split("::")[2]} idehr={this.id.id} idv={this.id.idV} />
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <br></br>
+              <Button variant="contained"  style={{ color: "white", background: "#3cafb2", width : "15%", right: "-2% !important;"}} href={"/ehr/" + this.id.id +"/verioned/add"}>
+              Create Composition
+              </Button>
+              <br></br>
+              <br></br>
             </div>
           </div>
+          
         </>
       );
     }

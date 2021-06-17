@@ -79,12 +79,38 @@ router.post("/ehr/:idEHR/versioned/:versioned_object_uid/composition/update", fu
     .catch((e) => console.log(e));
 });
 
-router.post("/ehr/:idEHR/verioned/add", function(
+router.post("/ehr/:idEHR/versioned/add", function(
   req,
   res,
   next
 ){
   Versioned.addVC(req.body)
+  .then((dados) => {
+    res.jsonp(dados);
+  })
+  .catch((e) => console.log(e));
+})
+
+router.delete("/ehr/:idEHR/versioned/:idV/composition/:idC", function(
+  req,
+  res,
+  next
+){
+  var id = req.params.idV + "::MyMedEHR::" + req.params.idC
+  Composition.deleteC(id)
+  .then((dados) => {
+    res.jsonp(dados);
+  })
+  .catch((e) => console.log(e));
+})
+
+
+router.delete("/ehr/:idEHR/versioned/:idV", function(
+  req,
+  res,
+  next
+){
+  Versioned.deleteVC(req.params.idV)
   .then((dados) => {
     res.jsonp(dados);
   })
