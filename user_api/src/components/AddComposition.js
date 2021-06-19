@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 window.event = 0;
 window.item = 0;
+window.keyV = {};
+window.key = "";
 window.value = 0;
 window.state = {
   tasks: {
@@ -71,14 +73,20 @@ function AddComposition() {
   });
 
   const handleClick = (e) => {
-    console.log(e);
+    console.log(e.target.attributes.getNamedItem("keep").value);
     var saver = e.target.attributes.getNamedItem("keep").value.split("_");
     var even = saver[0];
     var ite = saver[1];
+    var tipo = saver[3];
     var val = saver[2];
+    console.log("lab: " + tipo);
+
     console.log("eve:" + even + "  ite:: " + ite + "  VAL:  " + val);
     var toChange = window.state.tasks;
-    while (toChange.content.length < even + 1) {
+    while (toChange.content.length > even) {
+      toChange.content.pop();
+    }
+    while (toChange.content.length <= even) {
       var t = {
         archetype_details: {
           archetype_id: {
@@ -140,7 +148,10 @@ function AddComposition() {
       };
       toChange.content.push(t);
     }
-    while (toChange.content[even].data.events[0].data.items < ite + 1) {
+    while (toChange.content[even].data.events[0].data.items.length > ite) {
+      toChange.content[even].data.events[0].data.items.pop();
+    }
+    while (toChange.content[even].data.events[0].data.items.length <= ite) {
       var it = {
         archetype_node_id: "at0004",
 
@@ -151,13 +162,46 @@ function AddComposition() {
       };
       toChange.content[even].data.events[0].data.items.push(it);
     }
-    console.log(toChange);
-    //var key = Object.entries(
-    //  toChange.content[even].data.events[0].data.items[ite].value
-    //)[val];
-    //toChange.content[even].data.events[0].data.items[ite].value[key[0]] =
-    //  e.target.value;
+    console.log("val: " + val);
 
+    //while (
+    //  Object.entries(
+    //    toChange.content[even].data.events[0].data.items[ite].value
+    //  ).length > val
+    //) {
+    //  var aR = Object.keys(
+    //    toChange.content[even].data.events[0].data.items[ite].value
+    //  )[
+    //    Object.entries(
+    //      toChange.content[even].data.events[0].data.items[ite].value
+    //    ).length - 1
+    //  ];
+    //  delete toChange.content[even].data.events[0].data.items[ite].value.[aR];
+    //}
+    console.log(e.target.value);
+    if (
+      Object.entries(
+        toChange.content[even].data.events[0].data.items[ite].value
+      ).length <= val
+    ) {
+      if (tipo === "label") {
+        window.key = e.target.value;
+        toChange.content[even].data.events[0].data.items[ite].value[
+          window.key
+        ] = "";
+      }
+      if (tipo === "value") {
+        console.log("window " + window.key);
+        var k = window.key;
+        var g = toChange.content[even].data.events[0].data.items[ite].value;
+        console.log(g);
+        g[k] = "oi";
+        toChange.content[even].data.events[0].data.items[ite].value[k] =
+          e.target.value;
+      }
+    }
+
+    console.log(toChange);
     window.state.tasks = toChange;
   };
   // functions to build form returned by useForm() hook

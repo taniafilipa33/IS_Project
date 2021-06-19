@@ -91,6 +91,7 @@ function AddLabels(props) {
                     window.value +
                     "_label"
                   }
+                  onChange={(e) => props.handleClick(e)}
                 />
                 <div className="invalid-feedback">
                   {errors.tickets?.[i]?.name?.message}
