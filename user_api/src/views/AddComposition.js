@@ -54,10 +54,9 @@ export default function versioned(props) {
             </svg>
           </div>
         </div>
-
-        <section className="pb-20 bg-blueGray-200 -mt-24">
-          <AddComposition {...props} />
-        </section>
+        <AddComposition {...props} />
+        <br></br>
+        <br></br>
       </main>
       <Footer />
     </>

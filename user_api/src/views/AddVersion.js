@@ -7,7 +7,6 @@ import Footer from "../components/Footers/Footer.js";
 import AddVersion from "../components/AddVersion.js";
 
 export default function versioned(props) {
-  console.log("pipii");
   return (
     <>
       <Navbar />
