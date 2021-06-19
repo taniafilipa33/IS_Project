@@ -2,9 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as Yup from "yup";
-import AddSmaller from "./AddSmaller";
+import AddLabels from "./AddLabels.js";
 
-function AddComposition() {
+function AddSmaller() {
   // form validation rules
   const validationSchema = Yup.object().shape({
     numberOfTickets: Yup.string().required("Number of events is required"),
@@ -35,12 +35,11 @@ function AddComposition() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
-      <div className="card m-3">
-        <b className="card-header">Create new Composition</b>
+      <div className="card m-3" style={{ backgroundColor: "aliceblue" }}>
         <div className="card-body border-bottom">
           <div className="form-row">
             <div className="form-group">
-              <b>Number of Events</b>
+              <b>Number of Items</b>
               <select
                 name="numberOfTickets"
                 ref={register}
@@ -62,9 +61,15 @@ function AddComposition() {
         </div>
         {ticketNumbers().map((i) => (
           <div key={i} className="list-group list-group-flush">
-            <div className="list-group-item">
-              <b className="card-title">Event {i + 1}</b>
-              <div className="form-row">
+            <div
+              className="list-group-item"
+              style={{ backgroundColor: "aliceblue" }}
+            >
+              <b className="card-title">Items {i + 1}</b>
+              <div
+                className="form-row"
+                style={{ backgroundColor: "aliceblue" }}
+              >
                 <div className="form-group col-9">
                   <label>Name</label>
                   <input
@@ -78,23 +83,15 @@ function AddComposition() {
                   <div className="invalid-feedback">
                     {errors.tickets?.[i]?.name?.message}
                   </div>
-                  <AddSmaller />
+                  <AddLabels />
                 </div>
               </div>
             </div>
           </div>
         ))}
-        <div className="card-footer text-center border-top-0">
-          <button type="submit" className="btn btn-primary mr-1">
-            Buy Tickets
-          </button>
-          <button className="btn btn-secondary mr-1" type="reset">
-            Reset
-          </button>
-        </div>
       </div>
     </form>
   );
 }
 
-export default AddComposition;
+export default AddSmaller;
