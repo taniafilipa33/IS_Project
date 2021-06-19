@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as Yup from "yup";
 
-function AddLabels() {
+function AddLabels(props) {
+  window.value = props.value;
   // form validation rules
   const validationSchema = Yup.object().shape({
     numberOfTickets: Yup.string().required("Number of Fields is required"),
@@ -16,6 +17,14 @@ function AddLabels() {
       })
     ),
   });
+
+  const updateValue = () => {
+    window.value = window.value + 1;
+  };
+
+  const restartValue = () => {
+    window.value = 0;
+  };
 
   // functions to build form returned by useForm() hook
   const { register, errors, watch } = useForm({
@@ -33,6 +42,7 @@ function AddLabels() {
   return (
     //<form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
     <div className="card m-3" style={{ backgroundColor: "antiquewhite" }}>
+      {restartValue()}
       <div className="card-body border-bottom">
         <div className="form-row">
           <div className="form-group">
@@ -45,7 +55,7 @@ function AddLabels() {
               }`}
             >
               {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                <option key={i} value={i}>
+                <option key={i} value={i} onChange={restartValue()}>
                   {i}
                 </option>
               ))}
@@ -73,6 +83,14 @@ function AddLabels() {
                   className={`form-control ${
                     errors.tickets?.[i]?.name ? "is-invalid" : ""
                   }`}
+                  keep={
+                    props.event +
+                    "_" +
+                    props.item +
+                    "_" +
+                    window.value +
+                    "_label"
+                  }
                 />
                 <div className="invalid-feedback">
                   {errors.tickets?.[i]?.name?.message}
@@ -87,6 +105,15 @@ function AddLabels() {
                   className={`form-control ${
                     errors.tickets?.[i]?.email ? "is-invalid" : ""
                   }`}
+                  keep={
+                    props.event +
+                    "_" +
+                    props.item +
+                    "_" +
+                    window.value +
+                    "_value"
+                  }
+                  onChange={(e) => props.handleClick(e)}
                 />
                 <div className="invalid-feedback">
                   {errors.tickets?.[i]?.email?.message}
@@ -94,6 +121,7 @@ function AddLabels() {
               </div>
             </div>
           </div>
+          {updateValue()}
         </div>
       ))}
     </div>

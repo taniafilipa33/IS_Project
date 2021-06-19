@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as Yup from "yup";
 import AddLabels from "./AddLabels.js";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 
 function AddSmaller(props) {
-  const event = props.event;
-  console.log("evento: " + event);
+  console.log("evento: " + props.event);
+  window.item = props.item;
+  window.value = props.value;
   // form validation rules
   const validationSchema = Yup.object().shape({
     numberOfTickets: Yup.string().required("Number of events is required"),
@@ -30,9 +32,21 @@ function AddSmaller(props) {
     return [...Array(parseInt(watchNumberOfTickets || 0)).keys()];
   }
 
+  const restartItem = () => {
+    window.item = 0;
+    window.value = 0;
+  };
+  const updateItem = () => {
+    console.log("entrei no update item");
+    window.item = window.item + 1;
+    window.value = 0;
+    console.log("item: " + window.item);
+  };
+
   return (
     //<form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
     <div className="card m-3" style={{ backgroundColor: "aliceblue" }}>
+      {restartItem()}
       <div className="card-body border-bottom">
         <div className="form-row">
           <div className="form-group">
@@ -45,7 +59,7 @@ function AddSmaller(props) {
               }`}
             >
               {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                <option key={i} value={i}>
+                <option key={i} value={i} onChange={restartItem()}>
                   {i}
                 </option>
               ))}
@@ -66,6 +80,7 @@ function AddSmaller(props) {
             <div className="form-row" style={{ backgroundColor: "aliceblue" }}>
               <div className="form-group col-9">
                 <label>Name</label>
+                {console.log("props: " + JSON.stringify(props))}
                 <input
                   name={`tickets[${i}]name`}
                   ref={register}
@@ -73,14 +88,22 @@ function AddSmaller(props) {
                   className={`form-control ${
                     errors.tickets?.[i]?.name ? "is-invalid" : ""
                   }`}
+                  keep={props.event + "_" + window.item + "_" + window.value}
+                  onChange={(e) => props.handleClick(e)}
                 />
                 <div className="invalid-feedback">
                   {errors.tickets?.[i]?.name?.message}
                 </div>
-                <AddLabels />
+                <AddLabels
+                  event={props.event}
+                  item={window.item}
+                  value={window.value}
+                  handleClick={props.handleClick}
+                />
               </div>
             </div>
           </div>
+          {updateItem()}
         </div>
       ))}
     </div>

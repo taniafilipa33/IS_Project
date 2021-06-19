@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import "./global.js";
+
 import { yupResolver } from "@hookform/resolvers";
 import * as Yup from "yup";
 import AddSmaller from "./AddSmaller";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
-const item = 0;
-const value = 0;
-const state = {
+window.event = 0;
+window.item = 0;
+window.value = 0;
+window.state = {
   tasks: {
     name: {
       value: "", //alterar
     },
     uid: {
-      value: "8849182c-82ad-4088-a07f-48ead4180515::MyMedEHR::1", //alterar
+      value: "", //alterar
     },
     link: [],
     archetype_details: {
@@ -59,8 +60,6 @@ const state = {
 };
 
 function AddComposition() {
-  //valores de enquadramento
-  global.event = 0;
   // form validation rules
   const validationSchema = Yup.object().shape({
     numberOfTickets: Yup.string().required("Number of events is required"),
@@ -72,12 +71,13 @@ function AddComposition() {
   });
 
   const handleClick = (e) => {
+    console.log(e);
     var saver = e.target.attributes.getNamedItem("keep").value.split("_");
     var even = saver[0];
     var ite = saver[1];
     var val = saver[2];
     console.log("eve:" + even + "  ite:: " + ite + "  VAL:  " + val);
-    var toChange = state.tasks;
+    var toChange = window.state.tasks;
     while (toChange.content.length < even + 1) {
       var t = {
         archetype_details: {
@@ -158,7 +158,7 @@ function AddComposition() {
     //toChange.content[even].data.events[0].data.items[ite].value[key[0]] =
     //  e.target.value;
 
-    state.tasks = toChange;
+    window.state.tasks = toChange;
   };
   // functions to build form returned by useForm() hook
   const { register, reset, errors, watch } = useForm({
@@ -179,25 +179,15 @@ function AddComposition() {
   };
 
   const updateEvent = () => {
-    console.log("upadateZito");
-    //console.log(event);
-    event = event + 1;
+    window.item = 0;
+    window.event = window.event + 1;
   };
 
   const forStarters = () => {
-    this.event = 0;
+    window.event = 0;
   };
 
-  const updateItem = () => {
-    this.item = this.item + 1;
-    this.value = 0;
-  };
-
-  const updateValue = () => {
-    this.value = this.value + 1;
-  };
-
-  if (state.submit === true) {
+  if (window.state.submit === true) {
     console.log("Enttreii");
     return (
       <Redirect
@@ -207,7 +197,7 @@ function AddComposition() {
   } else {
     return (
       <form onSubmit={handleSubmit} onReset={reset}>
-        {forStarters}
+        {forStarters()}
         <div className="card m-3">
           <b className="card-header">Create new Composition</b>
           <div className="card-body border-bottom">
@@ -222,7 +212,7 @@ function AddComposition() {
                   }`}
                 >
                   {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                    <option key={i} value={i}>
+                    <option key={i} value={i} onChange={forStarters()}>
                       {i}
                     </option>
                   ))}
@@ -247,13 +237,20 @@ function AddComposition() {
                       className={`form-control ${
                         errors.tickets?.[i]?.name ? "is-invalid" : ""
                       }`}
-                      keep={event + "_" + item + "_" + value}
-                      onChange={handleClick}
+                      keep={
+                        window.event + "_" + window.item + "_" + window.value
+                      }
+                      onChange={(e) => handleClick(e)}
                     />
                     <div className="invalid-feedback">
                       {errors.tickets?.[i]?.name?.message}
                     </div>
-                    <AddSmaller event={event} item={item} value={value} />
+                    <AddSmaller
+                      event={window.event}
+                      item={window.item}
+                      value={window.value}
+                      handleClick={handleClick}
+                    />
                   </div>
                 </div>
               </div>
