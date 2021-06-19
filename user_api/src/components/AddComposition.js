@@ -1,65 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import "./global.js";
 import { yupResolver } from "@hookform/resolvers";
 import * as Yup from "yup";
 import AddSmaller from "./AddSmaller";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
-function AddComposition() {
-  //valores de enquadramento
-  const event = 0;
-  const item = 0;
-  const value = 0;
-  const state = {
-    tasks: {
-      name: {
-        value: "", //alterar
-      },
-      uid: {
-        value: "8849182c-82ad-4088-a07f-48ead4180515::MyMedEHR::1", //alterar
-      },
-      link: [],
-      archetype_details: {
-        archetype_id: "", //alterar
+const item = 0;
+const value = 0;
+const state = {
+  tasks: {
+    name: {
+      value: "", //alterar
+    },
+    uid: {
+      value: "8849182c-82ad-4088-a07f-48ead4180515::MyMedEHR::1", //alterar
+    },
+    link: [],
+    archetype_details: {
+      archetype_id: "", //alterar
 
-        rm_version: "1.0.1",
-        template_id: "", //alterar
+      rm_version: "1.0.1",
+      template_id: "", //alterar
+    },
+    archetype_node_id: "", //alterar
+    language: {
+      code_string: "en",
+      terminology_id: "ISO_639-1",
+    },
+    territory: {
+      code_string: "SI",
+      terminology_id: "ISO_3166-1",
+    },
+    category: {
+      defining_code: {
+        code_string: "433",
+        terminology_id: "openehr",
       },
-      archetype_node_id: "", //alterar
-      language: {
-        code_string: "en",
-        terminology_id: "ISO_639-1",
-      },
-      territory: {
-        code_string: "SI",
-        terminology_id: "ISO_3166-1",
-      },
-      category: {
+      value: "event",
+    },
+    composer: "ehrscape",
+    context: {
+      setting: {
         defining_code: {
-          code_string: "433",
+          code_string: "238",
           terminology_id: "openehr",
         },
-        value: "event",
+        value: "other care",
       },
-      composer: "ehrscape",
-      context: {
-        setting: {
-          defining_code: {
-            code_string: "238",
-            terminology_id: "openehr",
-          },
-          value: "other care",
-        },
-        startTime: {
-          value: "", //a alterar
-        },
+      startTime: {
+        value: "", //a alterar
       },
-      content: [],
     },
-    isLoading: true,
-    submit: false,
-  };
+    content: [],
+  },
+  isLoading: true,
+  submit: false,
+};
 
+function AddComposition() {
+  //valores de enquadramento
+  global.event = 0;
   // form validation rules
   const validationSchema = Yup.object().shape({
     numberOfTickets: Yup.string().required("Number of events is required"),
@@ -77,11 +78,85 @@ function AddComposition() {
     var val = saver[2];
     console.log("eve:" + even + "  ite:: " + ite + "  VAL:  " + val);
     var toChange = state.tasks;
-    var key = Object.entries(
-      toChange.content[even].data.events[0].data.items[ite].value
-    )[val];
-    toChange.content[even].data.events[0].data.items[ite].value[key[0]] =
-      e.target.value;
+    while (toChange.content.length < even + 1) {
+      var t = {
+        archetype_details: {
+          archetype_id: {
+            value: "", //alterado
+          },
+
+          rm_version: "1.0.1",
+        },
+        archetype_node_id: "", //alterado
+
+        data: {
+          archetype_node_id: "at0002",
+
+          events: [
+            {
+              archetype_node_id: "at0003",
+
+              data: {
+                archetype_node_id: "at0001",
+
+                items: [],
+                name: {
+                  value: "Single",
+                },
+              },
+              name: {
+                value: "Any event",
+              },
+              time: {
+                value: "", //alterar
+              },
+            },
+          ],
+          name: {
+            value: "History",
+          },
+          origin: {
+            value: "", //alterar
+          },
+        },
+        encoding: {
+          code_string: "UTF-8",
+          terminology_id: {
+            value: "IANA_character-sets",
+          },
+        },
+        language: {
+          code_string: "en",
+          terminology_id: {
+            value: "ISO_639-1",
+          },
+        },
+        name: {
+          value: "", //alterar
+        },
+        subject: {
+          class: "PARTY_SELF",
+        },
+      };
+      toChange.content.push(t);
+    }
+    while (toChange.content[even].data.events[0].data.items < ite + 1) {
+      var it = {
+        archetype_node_id: "at0004",
+
+        name: {
+          value: "", //a alterar
+        },
+        value: {}, //a alterar
+      };
+      toChange.content[even].data.events[0].data.items.push(it);
+    }
+    console.log(toChange);
+    //var key = Object.entries(
+    //  toChange.content[even].data.events[0].data.items[ite].value
+    //)[val];
+    //toChange.content[even].data.events[0].data.items[ite].value[key[0]] =
+    //  e.target.value;
 
     state.tasks = toChange;
   };
@@ -104,8 +179,9 @@ function AddComposition() {
   };
 
   const updateEvent = () => {
-    this.event = this.event + 1;
-    this.item = 0;
+    console.log("upadateZito");
+    //console.log(event);
+    event = event + 1;
   };
 
   const forStarters = () => {
@@ -181,7 +257,7 @@ function AddComposition() {
                   </div>
                 </div>
               </div>
-              {updateEvent}
+              {updateEvent()}
             </div>
           ))}
           <div className="card-footer text-center border-top-0">
