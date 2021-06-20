@@ -103,57 +103,21 @@ function AddComposition() {
     var even = saver[0];
     var ite = saver[1];
     var tipo = saver[3];
-    var val = saver[2];
-    console.log("lab: " + tipo);
-
-    console.log("eve:" + even + "  ite:: " + ite + "  VAL:  " + val);
-    console.log("antes::::");
 
     if (window.itemi === -1) window.itemi = ite;
 
     if (tipo !== undefined) {
-      if (ite !== window.itemi) {
-        console.log("entrei no diferente");
-        console.log("keeper" + JSON.stringify(window.kepper));
-        if (tipo === "label") {
-          console.log("tipo na label de cima");
-          window.key = e.target.value;
-        }
-        if (tipo === "value") {
-          console.log("ite??? " + window.itemi);
-          var k = window.key;
-          window.state.tasks.content[even].data.events[0].data.items[
-            window.itemi
-          ].value = {};
-          for (var i = 0; i < window.kepper.length; i++) {
-            window.state.tasks.content[even].data.events[0].data.items[
-              window.itemi
-            ].value[Object.keys(window.kepper[i])[0]] = Object.values(
-              window.kepper[i]
-            )[0];
-          }
-
-          window.kepper = [];
-          var uu = {};
-          uu[k] = e.target.value;
-          window.kepper.push(uu);
-          window.itemi = ite;
-        }
-      } else {
-        if (tipo === "label") {
-          window.key = e.target.value;
-        }
-        if (tipo === "value") {
-          console.log("window " + window.key);
-          var k = window.key;
-          var uu = {};
-          uu[k] = e.target.value;
-          window.kepper.push(uu);
-        }
+      if (tipo === "label") {
+        window.key = e.target.value;
+      }
+      if (tipo === "value") {
+        window.state.tasks.content[even].data.events[0].data.items[ite].value[
+          window.key
+        ] = e.target.value;
       }
     } else {
     }
-    console.log("tasks:::");
+    console.log("tasks::: ");
     console.log(window.state.tasks);
   };
   // functions to build form returned by useForm() hook
