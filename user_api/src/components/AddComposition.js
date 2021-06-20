@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers";
 import * as Yup from "yup";
 import AddSmaller from "./AddSmaller";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import { id } from "date-fns/locale";
 
 window.event = 0;
 window.item = 0;
@@ -106,17 +107,30 @@ function AddComposition() {
 
     if (window.itemi === -1) window.itemi = ite;
 
-    if (tipo !== undefined) {
-      if (tipo === "label") {
+    switch (tipo) {
+      case "label":
         window.key = e.target.value;
-      }
-      if (tipo === "value") {
+        break;
+      case "value":
         window.state.tasks.content[even].data.events[0].data.items[ite].value[
           window.key
         ] = e.target.value;
-      }
-    } else {
+        break;
+      case "nameEvent":
+        window.state.tasks.content[even].name.value = e.target.value;
+        window.state.tasks.content[even].archetype_node_id =
+          "openEHR-EHR-OBSERVATION." + e.target.value.replace(" ", "_");
+        window.state.tasks.content[even].archetype_details.archetype_id.value =
+          "openEHR-EHR-OBSERVATION." + e.target.value.replace(" ", "_");
+        break;
+      case "ItemName":
+        window.state.tasks.content[even].data.events[0].data.items[ite].name =
+          e.target.value;
+        break;
+      default:
+        console.log("nenhum");
     }
+
     console.log("tasks::: ");
     console.log(window.state.tasks);
   };
@@ -265,7 +279,12 @@ function AddComposition() {
                         errors.tickets?.[i]?.name ? "is-invalid" : ""
                       }`}
                       keep={
-                        window.event + "_" + window.item + "_" + window.value
+                        window.event +
+                        "_" +
+                        window.item +
+                        "_" +
+                        window.value +
+                        "_nameEvent"
                       }
                       onChange={(e) => handleClick(e)}
                     />

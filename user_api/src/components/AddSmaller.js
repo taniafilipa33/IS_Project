@@ -99,7 +99,14 @@ function AddSmaller(props) {
                   className={`form-control ${
                     errors.tickets?.[i]?.name ? "is-invalid" : ""
                   }`}
-                  keep={props.event + "_" + window.item + "_" + window.value}
+                  keep={
+                    props.event +
+                    "_" +
+                    window.item +
+                    "_" +
+                    window.value +
+                    "_ItemName"
+                  }
                   onChange={(e) => props.handleClick(e)}
                 />
                 <div className="invalid-feedback">
