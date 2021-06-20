@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import AddLabels from "./AddLabels.js";
 import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 
+window.starter = 1;
 function AddSmaller(props) {
   console.log("evento: " + props.event);
   window.item = props.item;
@@ -40,7 +41,11 @@ function AddSmaller(props) {
     console.log("entrei no update item");
     window.item = window.item + 1;
     window.value = 0;
+    props.sender(window.item);
     console.log("item: " + window.item);
+  };
+  const charger = () => {
+    props.senderItems(watchNumberOfTickets, props.event);
   };
 
   return (
@@ -59,7 +64,12 @@ function AddSmaller(props) {
               }`}
             >
               {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                <option key={i} value={i} onChange={restartItem()}>
+                <option
+                  key={i}
+                  value={i}
+                  onChange={restartItem()}
+                  onSelect={charger()}
+                >
                   {i}
                 </option>
               ))}
@@ -70,6 +80,7 @@ function AddSmaller(props) {
           </div>
         </div>
       </div>
+
       {ticketNumbers().map((i) => (
         <div key={i} className="list-group list-group-flush">
           <div
@@ -94,6 +105,7 @@ function AddSmaller(props) {
                 <div className="invalid-feedback">
                   {errors.tickets?.[i]?.name?.message}
                 </div>
+
                 <AddLabels
                   event={props.event}
                   item={window.item}

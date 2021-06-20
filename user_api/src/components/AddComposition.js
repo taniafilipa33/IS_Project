@@ -8,9 +8,13 @@ import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 window.event = 0;
 window.item = 0;
-window.keyV = {};
+window.items = 0;
+window.kepper = [];
 window.key = "";
+window.comecei = 1;
 window.value = 0;
+window.itemAtual = -1;
+window.itemi = -1;
 window.state = {
   tasks: {
     name: {
@@ -61,6 +65,27 @@ window.state = {
   submit: false,
 };
 
+const sender = (valor) => {
+  console.log("numebr of items deste evento");
+  window.items = valor;
+};
+
+const senderItems = async (i, evento) => {
+  while (
+    window.state.tasks.content[evento].data.events[0].data.items.length < i
+  ) {
+    var it = {
+      archetype_node_id: "at0004",
+
+      name: {
+        value: "", //a alterar
+      },
+      value: {}, //a alterar
+    };
+    window.state.tasks.content[evento].data.events[0].data.items.push(it);
+  }
+};
+
 function AddComposition() {
   // form validation rules
   const validationSchema = Yup.object().shape({
@@ -72,7 +97,7 @@ function AddComposition() {
     ),
   });
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     console.log(e.target.attributes.getNamedItem("keep").value);
     var saver = e.target.attributes.getNamedItem("keep").value.split("_");
     var even = saver[0];
@@ -82,11 +107,69 @@ function AddComposition() {
     console.log("lab: " + tipo);
 
     console.log("eve:" + even + "  ite:: " + ite + "  VAL:  " + val);
-    var toChange = window.state.tasks;
-    while (toChange.content.length > even) {
-      toChange.content.pop();
+    console.log("antes::::");
+
+    if (window.itemi === -1) window.itemi = ite;
+
+    if (tipo !== undefined) {
+      if (ite !== window.itemi) {
+        console.log("entrei no diferente");
+        console.log("keeper" + JSON.stringify(window.kepper));
+        if (tipo === "label") {
+          console.log("tipo na label de cima");
+          window.key = e.target.value;
+        }
+        if (tipo === "value") {
+          console.log("ite??? " + window.itemi);
+          var k = window.key;
+          window.state.tasks.content[even].data.events[0].data.items[
+            window.itemi
+          ].value = {};
+          for (var i = 0; i < window.kepper.length; i++) {
+            window.state.tasks.content[even].data.events[0].data.items[
+              window.itemi
+            ].value[Object.keys(window.kepper[i])[0]] = Object.values(
+              window.kepper[i]
+            )[0];
+          }
+
+          window.kepper = [];
+          var uu = {};
+          uu[k] = e.target.value;
+          window.kepper.push(uu);
+          window.itemi = ite;
+        }
+      } else {
+        if (tipo === "label") {
+          window.key = e.target.value;
+        }
+        if (tipo === "value") {
+          console.log("window " + window.key);
+          var k = window.key;
+          var uu = {};
+          uu[k] = e.target.value;
+          window.kepper.push(uu);
+        }
+      }
+    } else {
     }
-    while (toChange.content.length <= even) {
+    console.log("tasks:::");
+    console.log(window.state.tasks);
+  };
+  // functions to build form returned by useForm() hook
+  const { register, reset, errors, watch } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  // watch to enable re-render when ticket number is changed
+  const watchNumberOfTickets = watch("numberOfTickets");
+  // return array of ticket indexes for rendering dynamic forms in the template
+  function ticketNumbers() {
+    return [...Array(parseInt(watchNumberOfTickets || 0)).keys()];
+  }
+
+  function creater() {
+    while (window.state.tasks.content.length < watchNumberOfTickets) {
       var t = {
         archetype_details: {
           archetype_id: {
@@ -146,75 +229,9 @@ function AddComposition() {
           class: "PARTY_SELF",
         },
       };
-      toChange.content.push(t);
+      window.state.tasks.content.push(t);
     }
-    while (toChange.content[even].data.events[0].data.items.length > ite) {
-      toChange.content[even].data.events[0].data.items.pop();
-    }
-    while (toChange.content[even].data.events[0].data.items.length <= ite) {
-      var it = {
-        archetype_node_id: "at0004",
-
-        name: {
-          value: "", //a alterar
-        },
-        value: {}, //a alterar
-      };
-      toChange.content[even].data.events[0].data.items.push(it);
-    }
-    console.log("val: " + val);
-
-    //while (
-    //  Object.entries(
-    //    toChange.content[even].data.events[0].data.items[ite].value
-    //  ).length > val
-    //) {
-    //  var aR = Object.keys(
-    //    toChange.content[even].data.events[0].data.items[ite].value
-    //  )[
-    //    Object.entries(
-    //      toChange.content[even].data.events[0].data.items[ite].value
-    //    ).length - 1
-    //  ];
-    //  delete toChange.content[even].data.events[0].data.items[ite].value.[aR];
-    //}
-    console.log(e.target.value);
-    if (
-      Object.entries(
-        toChange.content[even].data.events[0].data.items[ite].value
-      ).length <= val
-    ) {
-      if (tipo === "label") {
-        window.key = e.target.value;
-        toChange.content[even].data.events[0].data.items[ite].value[
-          window.key
-        ] = "";
-      }
-      if (tipo === "value") {
-        console.log("window " + window.key);
-        var k = window.key;
-        var g = toChange.content[even].data.events[0].data.items[ite].value;
-        console.log(g);
-        g[k] = "oi";
-        toChange.content[even].data.events[0].data.items[ite].value[k] =
-          e.target.value;
-      }
-    }
-
-    console.log(toChange);
-    window.state.tasks = toChange;
-  };
-  // functions to build form returned by useForm() hook
-  const { register, reset, errors, watch } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
-
-  // watch to enable re-render when ticket number is changed
-  const watchNumberOfTickets = watch("numberOfTickets");
-
-  // return array of ticket indexes for rendering dynamic forms in the template
-  function ticketNumbers() {
-    return [...Array(parseInt(watchNumberOfTickets || 0)).keys()];
+    console.log(window.state.tasks);
   }
 
   const handleSubmit = async (e) => {
@@ -242,6 +259,7 @@ function AddComposition() {
     return (
       <form onSubmit={handleSubmit} onReset={reset}>
         {forStarters()}
+
         <div className="card m-3">
           <b className="card-header">Create new Composition</b>
           <div className="card-body border-bottom">
@@ -267,6 +285,7 @@ function AddComposition() {
               </div>
             </div>
           </div>
+          {creater()}
           {ticketNumbers().map((i) => (
             <div key={i} className="list-group list-group-flush">
               <div className="list-group-item">
@@ -290,6 +309,8 @@ function AddComposition() {
                       {errors.tickets?.[i]?.name?.message}
                     </div>
                     <AddSmaller
+                      sender={sender}
+                      senderItems={senderItems}
                       event={window.event}
                       item={window.item}
                       value={window.value}
