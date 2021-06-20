@@ -213,24 +213,26 @@ function AddComposition() {
     }
     console.log(window.state.tasks);
   }
+  console.log(window.location.pathname)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
       .post(
         "http://localhost:7300/ehr/" +
-          window.location.pathname.split("/")[1] +
-          "/versioned/" +
           window.location.pathname.split("/")[2] +
+          "/versioned/" +
+          window.location.pathname.split("/")[4] +
           "/composition/add",
         window.state.tasks
       )
       .then((e) => {
+        
         window.location.href =
-          "/ehr/" +
-          window.location.pathname.split("/")[1] +
-          "/versioned/" +
+          "http://localhost:3000/ehr/" +
           window.location.pathname.split("/")[2] +
+          "/versioned/" +
+          window.location.pathname.split("/")[4] +
           "/composition";
       })
       .catch((e) => console.log(e));
