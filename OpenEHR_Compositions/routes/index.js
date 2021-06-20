@@ -67,55 +67,55 @@ router.get("/ehr/:idEHR/versioned/:versioned_object_uid/composition", function (
     .catch((e) => console.log(e));
 });
 
-router.post("/ehr/:idEHR/versioned/:versioned_object_uid/composition/update", function (
-  req,
-  res,
-  next
-) {
-  Composition.updateComposition(req.body)
+router.post(
+  "/ehr/:idEHR/versioned/:versioned_object_uid/composition/update",
+  function (req, res, next) {
+    Composition.updateComposition(req.body)
+      .then((dados) => {
+        res.jsonp(dados);
+      })
+      .catch((e) => console.log(e));
+  }
+);
+
+router.post(
+  "/ehr/:idEHR/versioned/:versioned_object_uid/composition/add",
+  function (req, res, next) {
+    Composition.createComposition(req.params.versioned_object_uid, req.body)
+      .then((dados) => {
+        res.jsonp(dados);
+      })
+      .catch((e) => console.log(e));
+  }
+);
+
+router.post("/ehr/:idEHR/versioned/add", function (req, res, next) {
+  Versioned.addVC(req.body)
     .then((dados) => {
       res.jsonp(dados);
     })
     .catch((e) => console.log(e));
 });
 
-router.post("/ehr/:idEHR/versioned/add", function(
+router.delete("/ehr/:idEHR/versioned/:idV/composition/:idC", function (
   req,
   res,
   next
-){
-  Versioned.addVC(req.body)
-  .then((dados) => {
-    res.jsonp(dados);
-  })
-  .catch((e) => console.log(e));
-})
-
-router.delete("/ehr/:idEHR/versioned/:idV/composition/:idC", function(
-  req,
-  res,
-  next
-){
-  var id = req.params.idV + "::MyMedEHR::" + req.params.idC
+) {
+  var id = req.params.idV + "::MyMedEHR::" + req.params.idC;
   Composition.deleteC(id)
-  .then((dados) => {
-    res.jsonp(dados);
-  })
-  .catch((e) => console.log(e));
-})
+    .then((dados) => {
+      res.jsonp(dados);
+    })
+    .catch((e) => console.log(e));
+});
 
-
-router.delete("/ehr/:idEHR/versioned/:idV", function(
-  req,
-  res,
-  next
-){
+router.delete("/ehr/:idEHR/versioned/:idV", function (req, res, next) {
   Versioned.deleteVC(req.params.idV)
-  .then((dados) => {
-    res.jsonp(dados);
-  })
-  .catch((e) => console.log(e));
-})
-
+    .then((dados) => {
+      res.jsonp(dados);
+    })
+    .catch((e) => console.log(e));
+});
 
 module.exports = router;

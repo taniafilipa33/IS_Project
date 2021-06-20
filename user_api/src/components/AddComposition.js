@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import AddSmaller from "./AddSmaller";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import { id } from "date-fns/locale";
+import axios from "axios";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 
 window.event = 0;
 window.item = 0;
@@ -214,7 +216,30 @@ function AddComposition() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("handle");
+    await axios
+      .post(
+        "http://localhost:7300/ehr/" +
+          window.location.pathname.split("/")[1] +
+          "/versioned/" +
+          window.location.pathname.split("/")[2] +
+          "/composition/add",
+        window.state.tasks
+      )
+      .then((e) => {
+        window.location.href =
+          "/ehr/" +
+          window.location.pathname.split("/")[1] +
+          "/versioned/" +
+          window.location.pathname.split("/")[2] +
+          "/composition";
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const guardaNome = (e) => {
+    console.log(e.target.value);
+    window.state.tasks.name.value = e.target.value;
+    window.state.tasks.archetype_details.template_id = e.target.value;
   };
 
   const updateEvent = () => {
@@ -226,97 +251,93 @@ function AddComposition() {
     window.event = 0;
   };
 
-  if (window.state.submit === true) {
-    console.log("Enttreii");
-    return (
-      <Redirect
-        to={"/ehr/" + this.id.id + "/versioned/" + this.id.idV + "/composition"}
-      />
-    );
-  } else {
-    return (
-      <form onSubmit={handleSubmit} onReset={reset}>
-        {forStarters()}
+  return (
+    <form onSubmit={handleSubmit} onReset={reset}>
+      {forStarters()}
 
-        <div className="card m-3">
-          <b className="card-header">Create new Composition</b>
-          <div className="card-body border-bottom">
-            <div className="form-row">
-              <div className="form-group">
-                <b>Number of Events</b>
-                <select
-                  name="numberOfTickets"
-                  ref={register}
-                  className={`form-control ${
-                    errors.numberOfTickets ? "is-invalid" : ""
-                  }`}
-                >
-                  {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                    <option key={i} value={i} onChange={forStarters()}>
-                      {i}
-                    </option>
-                  ))}
-                </select>
-                <div className="invalid-feedback">
-                  {errors.numberOfTickets?.message}
-                </div>
+      <div className="card m-3">
+        <b className="card-header">Create new Composition</b>
+        <div className="card-body border-bottom">
+          <div className="form-row">
+            <div className="form-group">
+              <b>Composition Name</b>
+              <br></br>
+              <input type="text" onChange={(e) => guardaNome(e)}></input>
+              <br></br>
+              <br></br>
+              <b>Number of Events</b>
+              <select
+                name="numberOfTickets"
+                ref={register}
+                className={`form-control ${
+                  errors.numberOfTickets ? "is-invalid" : ""
+                }`}
+              >
+                {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+                  <option key={i} value={i} onChange={forStarters()}>
+                    {i}
+                  </option>
+                ))}
+              </select>
+              <div className="invalid-feedback">
+                {errors.numberOfTickets?.message}
               </div>
             </div>
-          </div>
-          {creater()}
-          {ticketNumbers().map((i) => (
-            <div key={i} className="list-group list-group-flush">
-              <div className="list-group-item">
-                <b className="card-title">Event {i + 1}</b>
-                <div className="form-row">
-                  <div className="form-group col-9">
-                    <label>Name</label>
-                    <input
-                      name={`tickets[${i}]name`}
-                      ref={register}
-                      type="text"
-                      className={`form-control ${
-                        errors.tickets?.[i]?.name ? "is-invalid" : ""
-                      }`}
-                      keep={
-                        window.event +
-                        "_" +
-                        window.item +
-                        "_" +
-                        window.value +
-                        "_nameEvent"
-                      }
-                      onChange={(e) => handleClick(e)}
-                    />
-                    <div className="invalid-feedback">
-                      {errors.tickets?.[i]?.name?.message}
-                    </div>
-                    <AddSmaller
-                      sender={sender}
-                      senderItems={senderItems}
-                      event={window.event}
-                      item={window.item}
-                      value={window.value}
-                      handleClick={handleClick}
-                    />
-                  </div>
-                </div>
-              </div>
-              {updateEvent()}
-            </div>
-          ))}
-          <div className="card-footer text-center border-top-0">
-            <button type="submit" className="btn btn-primary mr-1">
-              Save
-            </button>
-            <button className="btn btn-secondary mr-1" type="reset">
-              Reset
-            </button>
           </div>
         </div>
-      </form>
-    );
-  }
+        {creater()}
+        {ticketNumbers().map((i) => (
+          <div key={i} className="list-group list-group-flush">
+            <div className="list-group-item">
+              <b className="card-title">Event {i + 1}</b>
+              <div className="form-row">
+                <div className="form-group col-9">
+                  <label>Name</label>
+                  <input
+                    name={`tickets[${i}]name`}
+                    ref={register}
+                    type="text"
+                    className={`form-control ${
+                      errors.tickets?.[i]?.name ? "is-invalid" : ""
+                    }`}
+                    keep={
+                      window.event +
+                      "_" +
+                      window.item +
+                      "_" +
+                      window.value +
+                      "_nameEvent"
+                    }
+                    onChange={(e) => handleClick(e)}
+                  />
+                  <div className="invalid-feedback">
+                    {errors.tickets?.[i]?.name?.message}
+                  </div>
+                  <AddSmaller
+                    sender={sender}
+                    senderItems={senderItems}
+                    event={window.event}
+                    item={window.item}
+                    value={window.value}
+                    handleClick={handleClick}
+                  />
+                </div>
+              </div>
+            </div>
+            {updateEvent()}
+          </div>
+        ))}
+        <div className="card-footer text-center border-top-0">
+          <button type="submit" className="btn btn-primary mr-1">
+            Save
+          </button>
+          <button className="btn btn-secondary mr-1" type="reset">
+            Reset
+          </button>
+        </div>
+      </div>
+    </form>
+  );
 }
 
 export default AddComposition;
