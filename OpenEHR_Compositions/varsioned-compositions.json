@@ -17,7 +17,7 @@
   {
     "_type": "VERSIONED_COMPOSITION",
     "uid": {
-      "value": "82ad-4088-a07f-8849182c"
+      "value": "7865kj4-56pl-4568-78rf-75lkjhb"
     },
     "owner_id": {
       "id": {
@@ -27,6 +27,36 @@
       "namespace": "local",
       "type": "EHR"
     },
+    "timeCreated": "2016-04-20T19:55:40.765+01:00"
+  },
+  {
+    "_type": "VERSIONED_COMPOSITION",
+    "uid": {
+      "value": "82ad-4088-a07f-8849182c"
+    },
+    "owner_id": {
+      "id": {
+        "_type": "HIER_OBJECT_ID",
+        "value": "897lk334-45987-3ed5r-78bv-gf34567"
+      },
+      "namespace": "local",
+      "type": "EHR"
+    },
     "timeCreated": "2015-01-20T19:30:22.765+01:00"
+  },
+  {
+    "_type": "VERSIONED_COMPOSITION",
+    "uid": {
+      "value": "555ld-4789-458rt-45hhg"
+    },
+    "owner_id": {
+      "id": {
+        "_type": "HIER_OBJECT_ID",
+        "value": "897lk334-45987-3ed5r-78bv-gf34567"
+      },
+      "namespace": "local",
+      "type": "EHR"
+    },
+    "timeCreated": "2020-05-27T19:40:22.765+01:00"
   }
 ]

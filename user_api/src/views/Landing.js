@@ -61,12 +61,14 @@ export default function Landing() {
             <div className="flex flex-wrap">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="px-4 py-5 flex-auto">
-                  <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
+                  <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400" >
                     <i className="fa fa-search"></i>
                   </div>
                   <h6 className="text-xl font-semibold">Search EHR</h6>
+                  <div style={{margin:"auto"}}>
                   <Search></Search>
-                  <p className="mt-2 mb-4 text-blueGray-500">
+                  </div>
+                  <p className="mt-2 mb-4 text-blueGray-500" >
                     Search for an EHR record
                   </p>
                 </div>
@@ -76,19 +78,17 @@ export default function Landing() {
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
                 <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
-                  <i className="fa fa-user-friends text-xl"></i>
+                  <i className="fa fa-users"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
                   Context
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  COntextualização da rest api. tenho precuiça de escrever
+                  Electronic Health Records (EHR) management system
                 </p>
                 <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
-                  The kit comes with three pre-built pages to help you get
-                  started fater. You can change the text and images and you're
-                  good to go. Just make sure you enable them first via
-                  JavaScript.
+                  This project was created in the course unit of Interoperabilidade Semântica and consists of a management system of EHR records.
+                  Here you can visualize, create, edit or remove data related to clinical contents.
                 </p>
                 <Link to="/" className="font-bold text-blueGray-700 mt-8">
                   EHR Website!
@@ -99,26 +99,10 @@ export default function Landing() {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
                   <img
                     alt="..."
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
+                    src={require("../assets/img/en1.png").default}
                     className="w-full align-middle rounded-t-lg"
                   />
-                  <blockquote className="relative p-8 mb-4">
-                    <svg
-                      preserveAspectRatio="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 583 95"
-                      className="absolute left-0 w-full block h-95-px -top-94-px"
-                    >
-                      <polygon
-                        points="-30,95 583,95 583,65"
-                        className="text-lightBlue-500 fill-current"
-                      ></polygon>
-                    </svg>
-                    <h4 className="text-xl font-bold text-white">OpenEHR</h4>
-                    <p className="text-md font-light mt-2 text-white">
-                      Cena a falar do site do ehr
-                    </p>
-                  </blockquote>
+                  
                 </div>
               </div>
             </div>
@@ -151,9 +135,9 @@ export default function Landing() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center text-center mb-24">
               <div className="w-full lg:w-6/12 px-4">
-                <h2 className="text-4xl font-semibold">Team</h2>
+                <h2 className="text-4xl font-semibold">Team - Grupo 7</h2>
                 <p className="text-lg leading-relaxed m-4 text-blueGray-500">
-                  Informatic Engineer Students the the University of Minho.
+                  Informatic Engineer Students at the University of Minho.
                 </p>
               </div>
             </div>
@@ -162,32 +146,32 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-1-800x800.jpg").default}
+                    src={require("../assets/img/bia.png").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Ana Beatriz</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Web Developer
+                      A85762
                     </p>
                     <div className="mt-6">
+                      <button
+                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fa fa-google"></i>
+                      </button>
                       <button
                         className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-twitter"></i>
+                        <i className="fa fa-twitter"></i>
                       </button>
                       <button
-                        className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-blueGray-700 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
-                      </button>
-                      <button
-                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                      >
-                        <i className="fab fa-dribbble"></i>
+                        <i className="fa fa-instagram"></i>
                       </button>
                     </div>
                   </div>
@@ -197,26 +181,32 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-2-800x800.jpg").default}
+                    src={require("../assets/img/margarida.jpg").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Ana Margarida</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Marketing Specialist
+                      A85166
                     </p>
                     <div className="mt-6">
                       <button
                         className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fa fa-google"></i>
                       </button>
                       <button
-                        className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
+                        <i className="fa fa-twitter"></i>
+                      </button>
+                      <button
+                        className="bg-blueGray-700 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fa fa-instagram"></i>
                       </button>
                     </div>
                   </div>
@@ -226,32 +216,32 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-3-800x800.jpg").default}
+                    src={require("../assets/img/pedro.png").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Pedro Silva</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      UI/UX Designer
+                      A82522
                     </p>
                     <div className="mt-6">
                       <button
                         className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fa fa-google"></i>
                       </button>
                       <button
                         className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-twitter"></i>
+                        <i className="fa fa-twitter"></i>
                       </button>
                       <button
                         className="bg-blueGray-700 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-instagram"></i>
+                        <i className="fa fa-instagram"></i>
                       </button>
                     </div>
                   </div>
@@ -261,38 +251,32 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-4-470x470.png").default}
+                    src={require("../assets/img/tania.jpg").default}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Tânia Rocha</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Founder and CEO
+                      A85176
                     </p>
                     <div className="mt-6">
-                      <button
-                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                      >
-                        <i className="fab fa-dribbble"></i>
-                      </button>
                       <button
                         className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fa fa-google"></i>
                       </button>
                       <button
                         className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-twitter"></i>
+                        <i className="fa fa-twitter"></i>
                       </button>
                       <button
                         className="bg-blueGray-700 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-instagram"></i>
+                        <i className="fa fa-instagram"></i>
                       </button>
                     </div>
                   </div>
